@@ -12,14 +12,15 @@
 
 		<script type="text/javascript">
 			require({
-			  baseUrl: '../../',
+			  baseUrl: '../',
 			  paths: {
 				  text: 'requirejs/text',
 				  i18n: 'requirejs/i18n',
 			      domReady: 'requirejs/domReady'
 			  }
 			});
-			require(["orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.js"]);
+			/* Original copy of embeddededitor.js is in orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.js - embeddededitor.js in root is a copy to fix path issues */
+			require(["embeddededitor.js"]);
 		</script>
 
     <body class="claro" style="width: 100%; height: 100%;">
