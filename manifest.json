@@ -1,9 +1,9 @@
 {
-  "name": "Orion Panel",
+  "name": "Orion Extension",
   "version": "0.1",
   "manifest_version": 1,
   "minimum_chrome_version": "19",
-  "description": "Orion Editor embedded into a DevTools panel",
+  "description": "Eclipse Orion Chrome Extension",
 
   "icons": {
      "16": "/img/orion16.png",
@@ -13,7 +13,7 @@
 
   "page_action": {
     "default_icon": "/img/orion16.png",
-    "default_title": "Embedded Orion"
+    "default_title": "Orion Extension"
    },
 
   "devtools_page": "devtools.html",
