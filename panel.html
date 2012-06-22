@@ -8,23 +8,23 @@
 		<link rel="stylesheet" type="text/css" href="orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.css" />
 
 		<!-- Require JS -->
-		<script src="js/requirejs/require.js"></script>
+		<script src="requirejs/require.js"></script>
 
 		<script type="text/javascript">
 			require({
-			  baseUrl: '../..',
+			  baseUrl: '../../',
 			  paths: {
 				  text: 'requirejs/text',
-				  i18n: 'js/requirejs/i18n',
+				  i18n: 'requirejs/i18n',
 			      domReady: 'requirejs/domReady'
 			  }
 			});
-			require(["embeddededitor.js"]);
+			require(["orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.js"]);
 		</script>
 
     <body class="claro" style="width: 100%; height: 100%;">
 	<div id="logo" style="height: 28px; background: #404040; text-align: left;">
-		<img src="images/skinnyheaderlogo.png" alt="Orion">
+		<img src="img/skinnyheaderlogo.png" alt="Orion">
 		<span id="bar" style="height: 28px; vertical-align: top; color: #FFFFFF;">
 			<span id="status" style="height: 28px; vertical-align: top; color: #FFFFFF;"></span>
 			<div id="actions" style="height: 28px; padding-right: 8px; vertical-align: top; float: right; color: #FFFFFF;">
