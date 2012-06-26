@@ -13,17 +13,17 @@
 /*jslint browser:true devel:true*/
 
 define([
-	"requirejs/require",
-	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/textview/textView",
-	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/textview/keyBinding",
-	"orion.client/bundles/org.eclipse.orion.client.editor/web/examples/textview/textStyler",
-	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/textMateStyler",
-	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/htmlGrammar",
-	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/editor",
-	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/editorFeatures",
-	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/contentAssist",
-	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/jsContentAssist",
-	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/cssContentAssist"],
+	"org.eclipse.orion.client.core/web/requirejs/require.js",
+	"org.eclipse.orion.client.editor/web/orion/textview/textView",
+	"org.eclipse.orion.client.editor/web/orion/textview/keyBinding",
+	"org.eclipse.orion.client.editor/web/examples/textview/textStyler",
+	"org.eclipse.orion.client.editor/web/orion/editor/textMateStyler",
+	"org.eclipse.orion.client.editor/web/orion/editor/htmlGrammar",
+	"org.eclipse.orion.client.editor/web/orion/editor/editor",
+	"org.eclipse.orion.client.editor/web/orion/editor/editorFeatures",
+	"org.eclipse.orion.client.editor/web/orion/editor/contentAssist",
+	"org.eclipse.orion.client.editor/web/orion/editor/jsContentAssist",
+	"org.eclipse.orion.client.editor/web/orion/editor/cssContentAssist"],
 
 function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist){
 	

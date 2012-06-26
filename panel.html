@@ -6,18 +6,18 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Embedded Orion Editor</title>
 		<link rel="stylesheet" type="text/css" href="orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.css" />
-		<link rel="stylesheet" type="text/css" href="css/default-theme.css" />
+		<link rel="stylesheet" type="text/css" href="orion.client/bundles/org.eclipse.orion.client.core/web/css/default-theme.css" />
 
-		<!-- Require JS v2.0.2-->
-		<script src="requirejs/require.js"></script>
+		<!-- Require JS in orion.client-->
+		<script src="/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require.js"></script>
 
 		<script type="text/javascript">
 			require({
-			  baseUrl: '../',
+			  baseUrl: 'orion.client/bundles/',
 			  paths: {
-				  text: 'requirejs/text',
-				  i18n: 'requirejs/i18n',
-			      domReady: 'requirejs/domReady'
+				  text: '/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/text',
+				  i18n: '/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/i18n',
+			      domReady: '/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/domReady'
 			  }
 			});
 			
