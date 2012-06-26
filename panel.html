@@ -6,8 +6,9 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Embedded Orion Editor</title>
 		<link rel="stylesheet" type="text/css" href="orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.css" />
+		<link rel="stylesheet" type="text/css" href="css/default-theme.css" />
 
-		<!-- Require JS -->
+		<!-- Require JS v2.0.2-->
 		<script src="requirejs/require.js"></script>
 
 		<script type="text/javascript">
@@ -19,6 +20,7 @@
 			      domReady: 'requirejs/domReady'
 			  }
 			});
+			
 			/* Original copy of embeddededitor.js is in orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.js - embeddededitor.js in root is a copy to fix path issues */
 			require(["embeddededitor.js"]);
 		</script>
