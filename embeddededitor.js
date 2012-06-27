@@ -13,17 +13,17 @@
 /*jslint browser:true devel:true*/
 
 define([
-	"require",
-	"orion/textview/textView",
-	"orion/textview/keyBinding",
-	"examples/textview/textStyler",
-	"orion/editor/textMateStyler",
-	"orion/editor/htmlGrammar",
-	"orion/editor/editor",
-	"orion/editor/editorFeatures",
-	"orion/editor/contentAssist",
-	"orion/editor/jsContentAssist",
-	"orion/editor/cssContentAssist"],
+	"orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require",
+	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/textview/textView",
+	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/textview/keyBinding",
+	"orion.client/bundles/org.eclipse.orion.client.editor/web/examples/textview/textStyler",
+	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/textMateStyler",
+	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/htmlGrammar",
+	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/editor",
+	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/editorFeatures",
+	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/contentAssist",
+	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/jsContentAssist",
+	"orion.client/bundles/org.eclipse.orion.client.editor/web/orion/editor/cssContentAssist"],
 
 function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist){
 	
