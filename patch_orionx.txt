@@ -1,0 +1,72 @@
+diff --git a/embeddededitor.js b/embeddededitor.js
+index 6bed49b..e503abe 100644
+--- a/embeddededitor.js
++++ b/embeddededitor.js
+@@ -13,17 +13,17 @@
+ /*jslint browser:true devel:true*/
+ 
+ define([
+-	"org.eclipse.orion.client.core/web/requirejs/require.js",
+-	"org.eclipse.orion.client.editor/web/orion/textview/textView",
+-	"org.eclipse.orion.client.editor/web/orion/textview/keyBinding",
+-	"org.eclipse.orion.client.editor/web/examples/textview/textStyler",
+-	"org.eclipse.orion.client.editor/web/orion/editor/textMateStyler",
+-	"org.eclipse.orion.client.editor/web/orion/editor/htmlGrammar",
+-	"org.eclipse.orion.client.editor/web/orion/editor/editor",
+-	"org.eclipse.orion.client.editor/web/orion/editor/editorFeatures",
+-	"org.eclipse.orion.client.editor/web/orion/editor/contentAssist",
+-	"org.eclipse.orion.client.editor/web/orion/editor/jsContentAssist",
+-	"org.eclipse.orion.client.editor/web/orion/editor/cssContentAssist"],
++	"require",
++	"orion/textview/textView",
++	"orion/textview/keyBinding",
++	"examples/textview/textStyler",
++	"orion/editor/textMateStyler",
++	"orion/editor/htmlGrammar",
++	"orion/editor/editor",
++	"orion/editor/editorFeatures",
++	"orion/editor/contentAssist",
++	"orion/editor/jsContentAssist",
++	"orion/editor/cssContentAssist"],
+ 
+ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist){
+ 	
+diff --git a/panel.html b/panel.html
+index 6b5aa60..e25d2af 100644
+--- a/panel.html
++++ b/panel.html
+@@ -5,26 +5,26 @@
+ 		<meta http-equiv="Content-Language" content="en-us">
+ 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ 		<title>Embedded Orion Editor</title>
+-		<link rel="stylesheet" type="text/css" href="orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.css" />
+-		<link rel="stylesheet" type="text/css" href="orion.client/bundles/org.eclipse.orion.client.core/web/css/default-theme.css" />
++		<link rel="stylesheet" type="text/css" href="css/default-theme.css" />
++		<link rel="stylesheet" type="text/css" href="examples/editor/embeddededitor.css" />
+ 
+ 		<!-- Require JS in orion.client-->
+-		<script src="/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require.js"></script>
++		<script src="requirejs/require.js"></script>
+ 
+ 		<script type="text/javascript">
+ 			require({
+-			  baseUrl: 'orion.client/bundles/',
++			  baseUrl: '.',
+ 			  paths: {
+-				  text: '/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/text',
+-				  i18n: '/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/i18n',
+-			      domReady: '/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/domReady'
++				  text: 'requirejs/text',
++				  i18n: 'requirejs/i18n',
++			      domReady: 'requirejs/domReady'
+ 			  }
+ 			});
+ 			
+ 			/* Original copy of embeddededitor.js is in orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.js - embeddededitor.js in root is a copy to fix path issues */
+ 			require(["embeddededitor.js"]);
+ 		</script>
+-
++	</head>
+     <body class="claro" style="width: 100%; height: 100%;">
+ 	<div id="logo" style="height: 28px; background: #404040; text-align: left;">
+ 		<img src="img/skinnyheaderlogo.png" alt="Orion">=
