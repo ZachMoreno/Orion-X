@@ -9,15 +9,17 @@
 		<link rel="stylesheet" type="text/css" href="examples/editor/embeddededitor.css" />
 
 		<!-- Require JS in orion.client-->
-		<script src="orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require.js"></script>
+		<script src="./orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require.js"></script>
 
 		<script type="text/javascript">
 			require({
-			  baseUrl: '/',
+			  
 			  paths: {
-				  text: 'orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/text',
-				  i18n: 'orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/i18n',
-			      domReady: 'orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/domReady'
+				  text: '/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/text',
+				  i18n: '/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/i18n',
+			      domReady: '/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/domReady',
+			      orion: '/orion.client/bundles/org.eclipse.orion.client.editor/web/orion/',
+			      examples: '/orion.client/bundles/org.eclipse.orion.client.editor/web/examples',
 			  }
 			});
 			
