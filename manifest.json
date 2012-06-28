@@ -16,7 +16,7 @@
     "default_title": "Orion Extension"
    },
 
-  "devtools_page": "devtools.html",
+  "devtools_page": "orion.html",
 
   "permissions" :
     [
