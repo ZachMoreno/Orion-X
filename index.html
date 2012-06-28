@@ -10,22 +10,9 @@
 
 		<!-- Require JS in orion.client-->
 		<script src="./orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require.js"></script>
-
-		<script type="text/javascript">
-			require({
-			  
-			  paths: {
-				  text: '/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/text',
-				  i18n: '/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/i18n',
-			      domReady: '/orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/domReady',
-			      orion: '/orion.client/bundles/org.eclipse.orion.client.editor/web/orion/',
-			      examples: '/orion.client/bundles/org.eclipse.orion.client.editor/web/examples',
-			  }
-			});
-			
-			/* Original copy of embeddededitor.js is in orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.js - embeddededitor.js in root is a copy to fix path issues */
-			require(["embeddededitor.js"]);
-		</script>
+		
+		<!-- Manifest v2 would not allow for inline script -->
+		<script src="requirePaths.js"></script>
 	</head>
     <body class="claro" style="width: 100%; height: 100%;">
 	<div id="logo" style="height: 28px; background: #404040; text-align: left;">
