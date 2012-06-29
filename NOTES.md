@@ -125,14 +125,14 @@ Embed Orion
 17. Uncaught TypeError: Cannot read property 'inspectedWindow' of undefined
 18. chrome.devtools.inspectedWindow.getResources is not in experimental (list of experimental APIs)
 19. Asked for help on IRC #chromium-extensions
-	1.	attempted copying code from getdocs.js & pasted it in panel.html, devtools.html, & devtools.js
-20. SAME ERROR
-21. Undocked DevTools, opened Orion panel, opened another DevTools window, console is logging resources of inspected window
-22. SUCCESS
-23. added resources.getContent() to getResource()
-24. Uncaught TypeError: Object [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object] has no method 'getContent' - getdocs.js:13
-25. Updated Milestone dates
-26. Both should work, once you 1) call the set...() handler and 2) change the selector in the config panel. All link clicks then land in your panel
+20. attempted copying code from getdocs.js & pasted it in panel.html, devtools.html, & devtools.js
+21. SAME ERROR
+22. Undocked DevTools, opened Orion panel, opened another DevTools window, console is logging resources of inspected window
+23. SUCCESS
+24. added resources.getContent() to getResource()
+25. Uncaught TypeError: Object [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object] has no method 'getContent' - getdocs.js:13
+26. Updated Milestone dates
+27. Both should work, once you 1) call the set...() handler and 2) change the selector in the config panel. All link clicks then land in your panel
 
 ## Enhancements
 1. Google Play Tabs

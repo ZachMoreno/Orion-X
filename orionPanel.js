@@ -65,6 +65,9 @@ chrome.devtools.panels.create('Orion', 'img/orion24.png', 'index.html', function
 		res.getContent(function(content, encoding) {
 			console.log('encoding', encoding);
 			load(content, res.type, line);
+
+			window.selectedRes = res;
+			window.selectedContent = content;
 		});
 
 		panel.show();

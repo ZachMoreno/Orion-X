@@ -124,7 +124,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		annotationFactory: annotationFactory,
 		lineNumberRulerFactory: new mEditorFeatures.LineNumberRulerFactory(),
 		contentAssistFactory: contentAssistFactory,
-		keyBindingFactory: keyBindingFactory, 
+		keyBindingFactory: keyBindingFactory,
 		statusReporter: statusReporter,
 		domNode: editorDomNode
 	});
@@ -140,6 +140,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	
 	editor.installTextView();
 	// if there is a mechanism to change which file is being viewed, this code would be run each time it changed.
+<<<<<<< HEAD
 	
 	if (!editor) {
 		var contentName = "sample.js";  // for example, a file name, something the user recognizes as the content.
@@ -150,6 +151,11 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	}
 
 	editor.setInput(contentName, null, initialContent);
+=======
+	var contentName = window.selectedRes;  // resource file name
+	var initialContent = window.selectedContent; //resource content
+	editor.setInput(contentName, null, initialContent); //placing name & content into editor
+>>>>>>> Put resource name & content into global variables
 	syntaxHighlighter.highlight(contentName, editor);
 	editor.highlightAnnotations();
 	contentAssist.addEventListener("Activating", function() {
