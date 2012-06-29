@@ -2,7 +2,7 @@
 
 ### Eclipse Orion Chrome Extension
 ---
-Requires Chrome version 19+
+Requires [Chrome version 19+] (https://tools.google.com/dlpage/chromesxs/)
 
 ## Installation
 1. Clone the repo `git clone https://github.com/XachMoreno/Orion-X.git`
