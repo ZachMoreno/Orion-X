@@ -141,12 +141,12 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	editor.installTextView();
 	// if there is a mechanism to change which file is being viewed, this code would be run each time it changed.
 	
-	/*var contentName = "sample.js";  // for example, a file name, something the user recognizes as the content.
-	var initialContent = "window.alert('this is some javascript code');  // try pasting in some real code";*/
-	
-	editor.setInput(contentName, null, initialContent);
-	var contentName = window.selectedRes;  // resource file name
-	var initialContent = window.selectedContent; //resource content
+	var contentName = "sample.js";  // for example, a file name, something the user recognizes as the content.
+	var initialContent = "window.alert('this is some javascript code');  // try pasting in some real code";
+
+	/*var contentName = window.selectedRes;  // resource file name
+	var initialContent = window.selectedContent; //resource content*/
+
 	editor.setInput(contentName, null, initialContent); //placing name & content into editor
 	//Put resource name & content into global variables
 	syntaxHighlighter.highlight(contentName, editor);
