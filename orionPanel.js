@@ -106,3 +106,9 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
     });
   });*/
 });
+
+
+//  https://bugs.webkit.org/show_bug.cgi?id=88473 - Jan's Patch
+//  If panel.show(); (line 70) requires a patched version of DevTools then why does the mirror extension work in my standard version?
+//  How do I get the patch to my local version of Chrome?
+//  Will it be an issue if Chrome trys to update automatically?
