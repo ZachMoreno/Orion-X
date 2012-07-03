@@ -1,3 +1,5 @@
+console.log("orionPanel.js "+window.location);
+
 // watch when resource contents are committed
 chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function(resource, content) {
 	console.log('resource content committed', resource, content);
