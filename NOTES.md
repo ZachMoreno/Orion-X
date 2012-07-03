@@ -132,7 +132,9 @@ Embed Orion
 24. added resources.getContent() to getResource()
 25. Uncaught TypeError: Object [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object] has no method 'getContent' - getdocs.js:13
 26. Updated Milestone dates
-27. Both should work, once you 1) call the set...() handler and 2) change the selector in the config panel. All link clicks then land in your panel
+27. "Both should work, once you 1) call the set...() handler and 2) change the selector in the config panel. All link clicks then land in your panel" - JJB
+28. Attempting to use `ExtensionPanel.show()` but I need the patched version of DevTools
+29. 
 
 ## Enhancements
 1. Google Play Tabs
