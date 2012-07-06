@@ -16,7 +16,7 @@
 
 
 define([
-	"orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require.js",
+	"orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require",
 	"orion/textview/textView",
 	"orion/textview/keyBinding",
 	"examples/textview/textStyler",

@@ -1,5 +1,3 @@
-console.log("orionPanel.js "+window.location);
-
 // watch when resource contents are committed
 chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function(resource, content) {
 	console.log('resource content committed', resource, content);
@@ -59,7 +57,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 
 
 
-  // use Orion panel to open resources
+	// use Orion panel to open resources
 	chrome.devtools.panels.setOpenResourceHandler(function(resource, line) {
 		console.log('open resource', resource, resource.url, resource.type, line);
 
@@ -101,7 +99,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 	// buttonsave.onClicked.addListener(save);
 
 	// test inspectedWindow.getResources
-	/*var buttonres = panel.createStatusBarButton('img/mirror16.png', 'Resources', false);
+	/*var buttonres = panel.createStatusBarButton('img/orion16.png', 'Resources', false);
 	buttonres.onClicked.addListener(function() {
 		chrome.devtools.inspectedWindow.getResources(function(res){
 		console.log(res);
@@ -110,7 +108,5 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 });
 
 
-//  https://bugs.webkit.org/show_bug.cgi?id=88473 - Jan's Patch
-//  If panel.show(); (line 70) requires a patched version of DevTools then why does the mirror extension work in my standard version?
-//  How do I get the patch to my local version of Chrome?
-//  Will it be an issue if Chrome trys to update automatically?
+
+
