@@ -145,7 +145,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	// if there is a mechanism to change which file is being viewed, this code would be run each time it changed.
 	
 	var contentName = "sample.js";  // for example, a file name, something the user recognizes as the content.
-	var initialContent = "window.alert('this is some javascript code');  // try pasting in some real code";
+	var initialContent = "// right click on a file in the Resources panel & select Open with Orion \nconsole.log('this is some javascript code');";
 
 	/*var contentName = window.selectedRes;  // resource file name
 	var initialContent = window.selectedContent; //resource content*/

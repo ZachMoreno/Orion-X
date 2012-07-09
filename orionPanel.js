@@ -7,13 +7,15 @@ chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function(
 chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function(panel) {
 	console.log('panel',JSON.stringify(panel),panel);
 
-	var res = null,
-		editor = null,
-		buffer = null;
+	var res      = null,
+		editor   = null,
+		buffer   = null;
 
 	// load resource code into the editor
 	function load(content, type, line) {
 		if (editor) {
+			// figure type of editor out
+			console.log('TYPE:' + editor.type);
 			console.log('loading', content, type, line);
 			editor.setValue(content);
 			editor.setOption('mode', (type === 'script' ? 'javascript' : 'css'));
