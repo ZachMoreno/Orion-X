@@ -134,7 +134,15 @@ Embed Orion
 26. Updated Milestone dates
 27. "Both should work, once you 1) call the set...() handler and 2) change the selector in the config panel. All link clicks then land in your panel" - JJB
 28. Attempting to use `ExtensionPanel.show()` but I need the patched version of DevTools
-29.   
+29. Talked to John B & we decided for me to begin developing against sirius (branch purple) instead of Chrome DevTools, because Sirius has a patched version of the DevTools extension API that includes `ExtensionPanel.show()`
+30. In Sirius' option page - added Orion & URL for Orion extension
+31. Changed back to manifest v1
+32. Included links to devtools_extension_api.js (3 files) in orion.html
+33. Moved orionPanel.js link below devtools_extension_api.js in orion.html
+34. SUCCESS == Orion panel is manifesting within Sirius & Open with Orion link is showing in context menu
+35. Met with John Arthorn on #eclipse-orion IRC channel to dicuss progress & deliverables
+36. John A attempted to install Orion-X within Sirius on Win7 Chrome 20 & the context menu would not show up
+37. Demoed resource & content logging in console when context menu is there == good
 
 ## Enhancements
 1. Google Play Tabs
