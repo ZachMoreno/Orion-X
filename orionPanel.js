@@ -8,17 +8,17 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 	console.log('panel',JSON.stringify(panel),panel);
 
 	var res      = null,
-		editor   = window.editor,
+		editor   = window.orionEditor,
 		buffer   = null;
 
 	panel.onShown.addListener(pollForEditor);
 
 	function setEditor() {
-		editor = window.editor;
+		editor = window.orionEditor;
 	}
 
 	function pollForEditor(window) {
-		if (window.editor) setEditor(window); // the current listener
+		if (window.orionEditor) setEditor(window); // the current listener
 		else setTimeout(pollForEditor, 100);
 	}
 
@@ -84,8 +84,8 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 	// as panels load lazily, grab the editor when it's ready
 	panel.onShown.addListener(function(window) {
 		if (!editor) {
-			console.log('setting editor', window.editor);
-			editor = window.editor;
+			console.log('setting editor', window.orionEditor);
+			editor = window.orionEditor;
 			editor.onSetBreakpoint = setBreakpoint;
 			editor.onUnsetBreakpoint = unsetBreakpoint;
 		}
