@@ -168,4 +168,6 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			return "There are unsaved changes.";
 		}
 	};
+
+	return editor;
 });

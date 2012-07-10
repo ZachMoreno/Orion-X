@@ -18,6 +18,6 @@ window.addEventListener('load', function onLoad() {
 		});
 
 		/* Original copy of embeddededitor.js is in orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.js - embeddededitor.js in root is a copy to fix path issues */
-		require(["embeddededitor.js"]);
+		require(["embeddededitor.js"], function(editor){ window.editor = editor;});
     }
 });

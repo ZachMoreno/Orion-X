@@ -8,14 +8,23 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 	console.log('panel',JSON.stringify(panel),panel);
 
 	var res      = null,
-		editor   = null,
+		editor   = window.editor,
 		buffer   = null;
+
+	panel.onShown.addListener(pollForEditor);
+
+	function setEditor() {
+		editor = window.editor;
+	}
+
+	function pollForEditor(window) {
+		if (window.editor) setEditor(window); // the current listener
+		else setTimeout(pollForEditor, 100);
+	}
 
 	// load resource code into the editor
 	function load(content, type, line) {
 		if (editor) {
-			// figure type of editor out
-			console.log('TYPE:' + editor.type);
 			console.log('loading', content, type, line);
 			editor.setValue(content);
 			editor.setOption('mode', (type === 'script' ? 'javascript' : 'css'));
