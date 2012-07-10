@@ -7,6 +7,13 @@ chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function(
 chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function(panel) {
 	console.log('panel',JSON.stringify(panel),panel);
 
+	if (!editor) {
+		console.log('setting editor', window.orionEditor);
+		editor = window.orionEditor;
+		// editor.onSetBreakpoint = setBreakpoint;
+		// editor.onUnsetBreakpoint = unsetBreakpoint;
+	}
+
 	var res      = null,
 		editor   = window.orionEditor,
 		buffer   = null;
@@ -26,9 +33,9 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 	function load(content, type, line) {
 		if (editor) {
 			console.log('loading', content, type, line);
-			editor.setValue(content);
-			editor.setOption('mode', (type === 'script' ? 'javascript' : 'css'));
-			editor.setCursor({line:line||0, ch:0});
+			editor.setInput(resource, null, content);
+			// editor.setOption('mode', (type === 'script' ? 'javascript' : 'css'));
+			// editor.setCursor({line:line||0, ch:0});
 		} else {
 			buffer = {content:content, type:type, line:line};
 			console.log('buffering load', buffer);
@@ -84,10 +91,10 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 	// as panels load lazily, grab the editor when it's ready
 	panel.onShown.addListener(function(window) {
 		if (!editor) {
-			console.log('setting editor', window.orionEditor);
+			console.log('showing editor', window.orionEditor);
 			editor = window.orionEditor;
-			editor.onSetBreakpoint = setBreakpoint;
-			editor.onUnsetBreakpoint = unsetBreakpoint;
+			// editor.onSetBreakpoint = setBreakpoint;
+			// editor.onUnsetBreakpoint = unsetBreakpoint;
 		}
 		if (buffer) {
 			console.log('loading buffer');
