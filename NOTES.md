@@ -146,6 +146,8 @@ Embed Orion
 38. Uncaught TypeError: Object [object HTMLDivElement] has no method 'setValue' orionPanel.js:18
 39. Met with Dan R to discuss current state of project
 40. editor variable in orionPanel.js is returning editorDomNode instead of editor object (embeddededitor.js: line 124)
+41. changed `<div id="editor"` to `<div id="orionEditor"` to help resolve any namespace collisions
+42. Added `require(["embeddededitor.js"], function(editor){ window.orionEditor = editor;});` to end of requirePaths.js so that when all JS is loaded the editor object in embeddededitor.js is defined as winodw.orionEditor
 
 ## Enhancements
 1. Google Play Tabs

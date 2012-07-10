@@ -33,7 +33,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 	function load(content, type, line) {
 		if (editor) {
 			console.log('loading', content, type, line);
-			editor.setInput(resource, null, content);
+			editor.setInput(resource.url, null, content);
 			// editor.setOption('mode', (type === 'script' ? 'javascript' : 'css'));
 			// editor.setCursor({line:line||0, ch:0});
 		} else {

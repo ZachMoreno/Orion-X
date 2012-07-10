@@ -30,7 +30,7 @@ define([
 
 function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist){
 	
-	var editorDomNode = document.getElementById("orionEditor");
+	var editorDomNode = document.getElementById("orion");
 	
 	var textViewFactory = function() {
 		return new mTextView.TextView({
