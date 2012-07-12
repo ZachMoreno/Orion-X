@@ -10,8 +10,6 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 	if (!editor) {
 		console.log('setting editor', window.orionEditor);
 		editor = window.orionEditor;
-		// editor.onSetBreakpoint = setBreakpoint;
-		// editor.onUnsetBreakpoint = unsetBreakpoint;
 	}
 
 	var res      = null,

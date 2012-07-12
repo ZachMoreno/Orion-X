@@ -145,13 +145,14 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	// if there is a mechanism to change which file is being viewed, this code would be run each time it changed.
 	
 	var contentName = "sample.js";  // for example, a file name, something the user recognizes as the content.
-	var initialContent = "// right click on a file in the Resources panel & select Open with Orion \nconsole.log('this is some javascript code');";
+	var initialContent = "// right click on a file in the Resources panel & select Open with Orion \n\nconsole.log('this is some javascript code');";
 
 	/*var contentName = window.selectedRes;  // resource file name
 	var initialContent = window.selectedContent; //resource content*/
 
-	editor.setInput(contentName, null, initialContent); //placing name & content into editor
-	//Put resource name & content into global variables
+	// placing name & content into editor
+	// PARAMETERS (title, message, contents, contentsSaved)
+	editor.setInput(contentName, null, initialContent);
 	syntaxHighlighter.highlight(contentName, editor);
 	editor.highlightAnnotations();
 	contentAssist.addEventListener("Activating", function() {
@@ -169,5 +170,10 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		}
 	};
 
-	return editor;
+	if (editor === editor) {
+		return editor;
+	} else {
+		console.log(editor);
+	}
+	
 });
