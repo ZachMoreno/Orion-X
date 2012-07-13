@@ -14,16 +14,16 @@ By: Zachariah Moreno
 10. Install Depot Tools
 11. Cloned Depot Tools into desktop/git-clones
 12. Add Depot Tools to $PATH variable - Help
-13. Terminal - touch ~/.bash_profile; open ~/.bash_profile
-14. Added export PATH="$PATH":`pwd`/depot_tools to bottom & saved
-15. Ran source ~/.bash_profile
-16. Ran echo $PATH retruned /opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:/Users/xachmoreno/desktop/git-clones/depot_tools
+13. Terminal - `touch ~/.bash_profile; open ~/.bash_profile`
+14. Added export `PATH="$PATH":`pwd`/depot_tools` to bottom & saved
+15. Ran `source ~/.bash_profile`
+16. Ran `echo $PATH retruned /opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:/Users/xachmoreno/desktop/git-clones/depot_tools`
 17. SUCCESS
 18. gclient.py config = Permission Denied
-19. config = usage: config [ -bcdo dir ] [ -p ] sysname
-20. Help - chmod a+x /Users/xachmoreno/Desktop/git-clones/depot_tools/gclient.py  = usage: config [ -bcdo dir ] [ -p ] sysname
-21. John Barton - gclient config http://devtools-save.googlecode.com/svn/trunk --name src 
-22. Help - .bashrc does not exist on Mac, create one and put export PATH="$PATH":`pwd`/depot_tools in it
+19. `config = usage: config [ -bcdo dir ] [ -p ] sysname`
+20. `Help - chmod a+x /Users/xachmoreno/Desktop/git-clones/depot_tools/gclient.py  = usage: config [ -bcdo dir ] [ -p ] sysname`
+21. John Barton - `gclient config http://devtools-save.googlecode.com/svn/trunk --name src `
+22. Help - .bashrc does not exist on Mac, create one and put `export PATH="$PATH":`pwd`/depot_tools` in it
 23. STRARTING OVER
 24. Install Depot Tools
 25. SUCCESS
@@ -37,9 +37,9 @@ By: Zachariah Moreno
 5. created devtools.html
 6. included script src="devtools.js"
 7. created devtools.js
-8. included chrome.devtools.panels.create( "Orion", "dark-orion-24x24.png", "panel.html", function(panel) {  });
+8. included `chrome.devtools.panels.create( "Orion", "dark-orion-24x24.png", "panel.html", function(panel) {  });`
 9. console: Uncaught SyntaxError: Unexpected token function devtools.html:13
-10. Removed function(panel) {  }
+10. Removed `function(panel) {  }`
 11. SUCCESS
 12. Updated Milestone
 Embed Orion
@@ -48,11 +48,11 @@ Embed Orion
 15. Working in panel.html
 16. included script data-main="orionformatter" src="orionformatter.js" from Gist
 17. included script src="require.js" from http://requirejs.org/docs/download.html#requirejs
-18. included require({"orionformatter"});
+18. included `require({"orionformatter"});`
 19. changed data-main to orionformatter
-20. updated define() statement with my file structure
+20. updated `define()` statement with my file structure
 21. Created embed-test directory to abstract embedding the orion editor
-22. set baseURL to '../embed-test'
+22. set baseURL to `'../embed-test'`
 23. console: Failed to load resource i18n.js
 24. included i18n.js in root
 25. error fixed
@@ -68,7 +68,7 @@ Embed Orion
 35. pulled out downloads/eclipse/plugins/org.eclipse.orion.client.editor_0.1.0.v20120412-2022/web/orion
 36. swapped with http://www.zachariahmoreno.com/portfolio/embed-test/orion (OLD VERSION)
 37. updated orionformatter.js
-38. updated define() method
+38. updated `define()` method
 39. Console Failed to Load resource orion/textview/nls/en-us/messages.js - file did not exist
 40. duplicated messages.js > created en-us folder > moved messages.js into en-us folder
 41. NO CONSOLE ERRORS
@@ -129,10 +129,27 @@ Embed Orion
 21. SAME ERROR
 22. Undocked DevTools, opened Orion panel, opened another DevTools window, console is logging resources of inspected window
 23. SUCCESS
-24. added resources.getContent() to getResource()
+24. added `resources.getContent()` to `getResource()`
 25. Uncaught TypeError: Object [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object] has no method 'getContent' - getdocs.js:13
 26. Updated Milestone dates
-27. Both should work, once you 1) call the set...() handler and 2) change the selector in the config panel. All link clicks then land in your panel
+27. "Both should work, once you 1) call the set...() handler and 2) change the selector in the config panel. All link clicks then land in your panel" - JJB
+28. Attempting to use `ExtensionPanel.show()` but I need the patched version of DevTools
+29. Talked to John B & we decided for me to begin developing against sirius (branch purple) instead of Chrome DevTools, because Sirius has a patched version of the DevTools extension API that includes `ExtensionPanel.show()`
+30. In Sirius' option page - added Orion & URL for Orion extension
+31. Changed back to manifest v1
+32. Included links to devtools_extension_api.js (3 files) in orion.html
+33. Moved orionPanel.js link below devtools_extension_api.js in orion.html
+34. SUCCESS == Orion panel is manifesting within Sirius & Open with Orion link is showing in context menu
+35. Met with John Arthorn on #eclipse-orion IRC channel to dicuss progress & deliverables
+36. John A attempted to install Orion-X within Sirius on Win7 Chrome 20 & the context menu would not show up
+37. Demoed resource & content logging in console when context menu is there == good
+38. Uncaught TypeError: Object [object HTMLDivElement] has no method 'setValue' orionPanel.js:18
+39. Met with Dan R to discuss current state of project
+40. editor variable in orionPanel.js is returning editorDomNode instead of editor object (embeddededitor.js: line 124)
+41. changed `<div id="editor"` to `<div id="orion"` to help resolve any namespace collisions
+42. Added `require(["embeddededitor.js"], function(editor){ window.orionEditor = editor;});` to end of requirePaths.js so that when all JS is loaded the editor object in embeddededitor.js - is defined as winodw.orionEditor
+43. Console is logging `Showing editor: >Editor` = editor constructor & not the embeddededitor.js instance of editor after selecting a resource
+44. 
 
 ## Enhancements
 1. Google Play Tabs

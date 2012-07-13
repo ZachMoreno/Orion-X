@@ -10,10 +10,12 @@
  ******************************************************************************/
 
 /*global console define document window*/
-define(['i18n!orion/sites/nls/messages', 'require', 'orion/commands', 'orion/sites/siteUtils', 'orion/sites/siteClient', 'orion/fileClient'],
-		function(messages, require, mCommands, mSiteUtils, mSiteClient) {
+/*jslint laxbreak:true*/
+define(['i18n!orion/sites/nls/messages', 'require', 'orion/commands', 'orion/sites/siteUtils', 'orion/sites/siteClient', 
+			'orion/Deferred', 'orion/i18nUtil'],
+		function(messages, require, mCommands, mSiteUtils, mSiteClient, Deferred, i18nUtil) {
 	var Command = mCommands.Command;
-
+	var formatMessage = i18nUtil.formatMessage;
 	/**
 	 * Creates & adds commands that act on an site service.
 	 * @param {orion.serviceregistry.ServiceRegistry} serviceRegistry
@@ -51,33 +53,57 @@ define(['i18n!orion/sites/nls/messages', 'require', 'orion/commands', 'orion/sit
 		commandService.addCommand(createCommand);
 	}
 
+	function wrap(i) {
+		return i instanceof Array ? i : [i];
+	}
+
+	function unwrap(i) {
+		return function(result) {
+			if (result instanceof Array && result.length === 1 && !(i instanceof Array)) {
+				return result[0];
+			}
+		};
+	}
+
 	/**
 	 * Creates & adds commands that act on an individual site configuration.
 	 * @param {orion.serviceregistry.ServiceRegistry} serviceRegistry
 	 * @name orion.sites.siteCommands#createSiteCommands
 	 */
 	function createSiteCommands(serviceRegistry) {
+		
 		var commandService = serviceRegistry.getService("orion.page.command"), //$NON-NLS-0$
 		    dialogService = serviceRegistry.getService("orion.page.dialog"), //$NON-NLS-0$
 		    progressService = serviceRegistry.getService("orion.page.progress"); //$NON-NLS-0$
+		
 		var editCommand = new Command({
 			name: messages["Edit"],
 			tooltip: messages["Edit the site configuration"],
 			imageClass: "core-sprite-edit", //$NON-NLS-0$
 			id: "orion.site.edit", //$NON-NLS-0$
 			visibleWhen: function(item) {
+				if (item instanceof Array && item.length == 1)
+					item = item[0];
+				
 				return item.HostingStatus;
 			},
-			hrefCallback: function(data) { return mSiteUtils.generateEditSiteHref(data.items);}});
+			hrefCallback: function(data) {
+				var item = (data.items instanceof Array ? data.items[0] : data.items);
+				return mSiteUtils.generateEditSiteHref(item);
+			}
+		});
 		commandService.addCommand(editCommand);
 
+		var userDataErr = 'userData.site requires a single site configuration to act upon'; //$NON-NLS-0$
 		var startCommand = new Command({
 			name: messages["Start"],
 			tooltip: messages["Start the site"],
 			imageClass: "core-sprite-start", //$NON-NLS-0$
 			id: "orion.site.start", //$NON-NLS-0$
 			visibleWhen: function(item) {
-				return item.HostingStatus && item.HostingStatus.Status === "stopped"; //$NON-NLS-0$
+				return wrap(item).some(function(s) {
+					return s.HostingStatus && s.HostingStatus.Status === "stopped"; //$NON-NLS-0$
+				});
 			},
 			/**
 			 * @param {SiteConfiguration} [userData.site] If passed, we'll mutate this site config.
@@ -85,13 +111,21 @@ define(['i18n!orion/sites/nls/messages', 'require', 'orion/commands', 'orion/sit
 			 * @param {Function} [userData.errorCallback]
 			 */
 			callback: function(data) {
+				var items = wrap(data.items);
 				var userData = data.userData;
-				var newItem = userData.site || {} /* just update the HostingStatus */;
-				newItem.HostingStatus = { Status: "started" }; //$NON-NLS-0$
-				var location = data.items.Location;
-				var siteService = mSiteClient.forLocation(serviceRegistry, location);
-				var deferred = siteService.updateSiteConfiguration(location, newItem);
-				progressService.showWhile(deferred).then(userData.startCallback, userData.errorCallback);
+				if (userData.site && items.length > 1) {
+					throw new Error(userDataErr);
+				}
+				var starts = items.map(function(item) {
+					var newItem = userData.site || {} /* just update the HostingStatus */;
+					newItem.HostingStatus = { Status: "started" }; //$NON-NLS-0$
+					var location = item.Location;
+					var siteService = mSiteClient.forLocation(serviceRegistry, location);
+					return siteService.updateSiteConfiguration(location, newItem);
+				});
+				progressService.showWhile(new Deferred().all(starts))
+					.then(unwrap(data.items))
+					.then(userData.startCallback, userData.errorCallback);
 			}});
 		commandService.addCommand(startCommand);
 
@@ -101,7 +135,9 @@ define(['i18n!orion/sites/nls/messages', 'require', 'orion/commands', 'orion/sit
 			imageClass: "core-sprite-stop", //$NON-NLS-0$
 			id: "orion.site.stop", //$NON-NLS-0$
 			visibleWhen: function(item) {
-				return item.HostingStatus && item.HostingStatus.Status === "started"; //$NON-NLS-0$
+				return wrap(item).some(function(s) {
+					return s.HostingStatus && s.HostingStatus.Status === "started"; //$NON-NLS-0$
+				});
 			},
 			/**
 			 * @param {SiteConfiguration} [data.userData.site] If passed, we'll mutate this site config.
@@ -109,13 +145,21 @@ define(['i18n!orion/sites/nls/messages', 'require', 'orion/commands', 'orion/sit
 			 * @param {Function} [data.userData.errorCallback]
 			 */
 			callback: function(data) {
+				var items = wrap(data.items);
 				var userData = data.userData;
-				var newItem = userData.site || {} /* just update the HostingStatus */;
-				newItem.HostingStatus = { Status: "stopped" }; //$NON-NLS-0$
-				var location = data.items.Location;
-				var siteService = mSiteClient.forLocation(serviceRegistry, location);
-				var deferred = siteService.updateSiteConfiguration(location, newItem);
-				progressService.showWhile(deferred).then(userData.stopCallback, userData.errorCallback);
+				if (userData.site && items.length > 1) {
+					throw new Error(userDataErr);
+				}
+				var stops = items.map(function(item) {
+					var newItem = userData.site || {} /* just update the HostingStatus */;
+					newItem.HostingStatus = { Status: "stopped" }; //$NON-NLS-0$
+					var location = item.Location;
+					var siteService = mSiteClient.forLocation(serviceRegistry, location);
+					return siteService.updateSiteConfiguration(location, newItem);
+				});
+				progressService.showWhile(new Deferred().all(stops))
+					.then(unwrap(data.items))
+					.then(userData.stopCallback, userData.errorCallback);
 			}});
 		commandService.addCommand(stopCommand);
 
@@ -124,21 +168,29 @@ define(['i18n!orion/sites/nls/messages', 'require', 'orion/commands', 'orion/sit
 			tooltip: messages["Delete the site configuration"],
 			imageClass: "core-sprite-delete", //$NON-NLS-0$
 			id: "orion.site.delete", //$NON-NLS-0$
-			visibleWhen: function(item) {
-				return item.HostingStatus && item.HostingStatus.Status === "stopped"; //$NON-NLS-0$
+			visibleWhen: function(items) {
+				return wrap(items).every(function(item) {
+					return item.HostingStatus && item.HostingStatus.Status === "stopped"; //$NON-NLS-0$
+				});
 			},
 			/**
 			 * @param {Function} [data.userData.deleteCallback]
 			 * @param {Function} [data.userData.errorCallback]
 			 */
 			callback: function(data) {
-				var msg = messages["Are you sure you want to delete the site configuration '"] + data.items.Name + "'?"; //$NON-NLS-1$
+				var items = wrap(data.items);
+				var userData = data.userData;
+				var msg = (items.length === 1)
+					? formatMessage(messages.ConfirmDeleteSingle, items[0].Name)
+					: formatMessage(messages.ConfirmDeleteMultiple, items.length);
 				dialogService.confirm(msg, function(confirmed) {
 					if (confirmed) {
-						var location = data.items.Location;
-						var userData = data.userData;
-						var siteService = mSiteClient.forLocation(serviceRegistry, location);
-						siteService.deleteSiteConfiguration(location).then(userData.deleteCallback, userData.errorCallback);
+						var deletes = items.map(function(item) {
+							var location = item.Location;
+							var siteService = mSiteClient.forLocation(serviceRegistry, location);
+							return siteService.deleteSiteConfiguration(location);
+						});
+						new Deferred().all(deletes).then(unwrap(data.items)).then(userData.deleteCallback, userData.errorCallback);
 					}
 				});
 			}});
