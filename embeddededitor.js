@@ -26,9 +26,10 @@ define([
 	"orion/editor/editorFeatures",
 	"orion/editor/contentAssist",
 	"orion/editor/jsContentAssist",
-	"orion/editor/cssContentAssist"],
+	"orion/editor/cssContentAssist",
+	"orionPanel"],
 
-function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist){
+function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist, orionPanel){
 	
 	var editorDomNode = document.getElementById("orion");
 	
@@ -145,7 +146,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	// if there is a mechanism to change which file is being viewed, this code would be run each time it changed.
 	
 	var contentName = "sample.js";  // for example, a file name, something the user recognizes as the content.
-	var initialContent = "// right click on a file in the Resources panel & select Open with Orion \n\nconsole.log('this is some javascript code');";
+	var initialContent = "// right click on a file in the Resources panel & select Open with Orion\n\nconsole.log('this is some javascript code');";
 
 	/*var contentName = window.selectedRes;  // resource file name
 	var initialContent = window.selectedContent; //resource content*/
@@ -170,10 +171,12 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		}
 	};
 
-	if (editor === editor) {
+	/*if (editor === editor) {
 		return editor;
 	} else {
 		console.log(editor);
-	}
+	}*/
+
+	return editor;
 	
 });

@@ -4,6 +4,7 @@
 // https://code.google.com/p/chromium/issues/detail?id=135526
 
 window.addEventListener('load', function onLoad() {
+	console.log('Window is loaded.');
     setTimeout(loadJSAsync);
 
     function loadJSAsync() {
