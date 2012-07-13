@@ -12,8 +12,11 @@
 /*global examples orion:true window define*/
 /*jslint browser:true devel:true*/
 
+
+
+
 define([
-	"orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require.js",
+	"orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require",
 	"orion/textview/textView",
 	"orion/textview/keyBinding",
 	"examples/textview/textStyler",
@@ -23,11 +26,12 @@ define([
 	"orion/editor/editorFeatures",
 	"orion/editor/contentAssist",
 	"orion/editor/jsContentAssist",
-	"orion/editor/cssContentAssist"],
+	"orion/editor/cssContentAssist",
+	"orionPanel"],
 
-function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist){
+function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist, orionPanel){
 	
-	var editorDomNode = document.getElementById("editor");
+	var editorDomNode = document.getElementById("orion");
 	
 	var textViewFactory = function() {
 		return new mTextView.TextView({
@@ -142,13 +146,14 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	// if there is a mechanism to change which file is being viewed, this code would be run each time it changed.
 	
 	var contentName = "sample.js";  // for example, a file name, something the user recognizes as the content.
-	var initialContent = "window.alert('this is some javascript code');  // try pasting in some real code";
+	var initialContent = "// right click on a file in the Resources panel & select Open with Orion\n\nconsole.log('this is some javascript code');";
 
 	/*var contentName = window.selectedRes;  // resource file name
 	var initialContent = window.selectedContent; //resource content*/
 
-	editor.setInput(contentName, null, initialContent); //placing name & content into editor
-	//Put resource name & content into global variables
+	// placing name & content into editor
+	// PARAMETERS (title, message, contents, contentsSaved)
+	editor.setInput(contentName, null, initialContent);
 	syntaxHighlighter.highlight(contentName, editor);
 	editor.highlightAnnotations();
 	contentAssist.addEventListener("Activating", function() {
@@ -165,4 +170,13 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			return "There are unsaved changes.";
 		}
 	};
+
+	/*if (editor === editor) {
+		return editor;
+	} else {
+		console.log(editor);
+	}*/
+
+	return editor;
+	
 });
