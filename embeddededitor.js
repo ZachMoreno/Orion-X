@@ -119,7 +119,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		} else {
 			status = message;
 		}
-		document.getElementById("status").innerHTML = dirtyIndicator + status;
+		document.getElementById("status").innerHTML = dirtyIndicator + contentName + '  ' + status;
 	};
 	
 	var editor = new mEditor.Editor({
