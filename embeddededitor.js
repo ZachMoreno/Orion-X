@@ -84,6 +84,9 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	var annotationFactory = new mEditorFeatures.AnnotationFactory();
 
 	function save(editor) {
+		var url = editor.sourceName;
+		var src = editor.getContent();
+		RevisionControl.save(url, src);
 		editor.setInput(null, null, null, true);
 		window.alert("Save hook.");
 	}
@@ -115,11 +118,12 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	
 	var statusReporter = function(message, isError) {
 		if (isError) {
-			status =  "ERROR: " + message;
+			status =  "Orion editor ERROR: " + message;
 		} else {
 			status = message;
+			console.log("Orion editor: "+ message);
 		}
-		document.getElementById("status").innerHTML = dirtyIndicator + status;
+		document.getElementById("status").innerHTML = dirtyIndicator + contentName + '  ' + status;
 	};
 	
 	var editor = new mEditor.Editor({
@@ -146,10 +150,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	// if there is a mechanism to change which file is being viewed, this code would be run each time it changed.
 	
 	var contentName = "sample.js";  // for example, a file name, something the user recognizes as the content.
-	var initialContent = "// right click on a file in the Resources panel & select Open with Orion\n\nconsole.log('this is some javascript code');";
-
-	/*var contentName = window.selectedRes;  // resource file name
-	var initialContent = window.selectedContent; //resource content*/
+	var initialContent = "// Right-click on a file in the Resources panel & select Open with Orion\n\nconsole.log('this is some javascript code');";
 
 	// placing name & content into editor
 	// PARAMETERS (title, message, contents, contentsSaved)
