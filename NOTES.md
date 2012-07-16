@@ -151,8 +151,11 @@ Embed Orion
 43. Console is logging `Showing editor: >Editor` = editor constructor & not the embeddededitor.js instance of editor after selecting a resource
 44. Changed `load()` method to include `editor.setInput(res, null, content);` - res ade the difference
 45. Editor successfully loading selected resource content
-46. Replaced the existing `save()` method in embeddededitor.js with JJB's `save()` method - successfully logging cursor position
-47. Uncaught TypeError: Object #<Object> has no method 'getContent' embeddededitor.js:88
+46. Updated milestones
+
+##Save edited files locally
+1. Replaced the existing `save()` method in embeddededitor.js with JJB's `save()` method - successfully logging cursor position
+2. Uncaught TypeError: Object #<Object> has no method 'getContent' embeddededitor.js:88
 
 ## Enhancements
 1. Google Play Tabs
