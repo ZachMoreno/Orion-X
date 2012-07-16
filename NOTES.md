@@ -149,7 +149,10 @@ Embed Orion
 41. changed `<div id="editor"` to `<div id="orion"` to help resolve any namespace collisions
 42. Added `require(["embeddededitor.js"], function(editor){ window.orionEditor = editor;});` to end of requirePaths.js so that when all JS is loaded the editor object in embeddededitor.js - is defined as winodw.orionEditor
 43. Console is logging `Showing editor: >Editor` = editor constructor & not the embeddededitor.js instance of editor after selecting a resource
-44. 
+44. Changed `load()` method to include `editor.setInput(res, null, content);` - res ade the difference
+45. Editor successfully loading selected resource content
+46. Replaced the existing `save()` method in embeddededitor.js with JJB's `save()` method - successfully logging cursor position
+47. Uncaught TypeError: Object #<Object> has no method 'getContent' embeddededitor.js:88
 
 ## Enhancements
 1. Google Play Tabs

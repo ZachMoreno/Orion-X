@@ -104,8 +104,9 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		// save binding
 		editor.getTextView().setKeyBinding(new mKeyBinding.KeyBinding("s", true), "save");
 		editor.getTextView().setAction("save", function(){
-				save(editor);
-				return true;
+			save(editor);
+			console.log('Resource saved!');
+			return true;
 		});
 		
 		// speaking of save...
