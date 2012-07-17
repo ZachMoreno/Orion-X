@@ -152,7 +152,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	
 	var contentName = "sample.js";  // for example, a file name, something the user recognizes as the content.
 	var initialContent = "// Right-click on a file in the Resources panel & select Open with Orion\n\nconsole.log('this is some javascript code');";
-
+	
 	// placing name & content into editor
 	// PARAMETERS (title, message, contents, contentsSaved)
 	editor.setInput(contentName, null, initialContent);
@@ -172,12 +172,6 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			return "There are unsaved changes.";
 		}
 	};
-
-	/*if (editor === editor) {
-		return editor;
-	} else {
-		console.log(editor);
-	}*/
 
 	return editor;
 	
