@@ -75,12 +75,11 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 	// use Orion panel to open resources
 	chrome.devtools.panels.setOpenResourceHandler(function(resource, line) {
 		console.log('open resource', resource, resource.url, resource.type, line);
-
+		window.selectedFileName = resource.url;
 		res = resource;
 		res.getContent(function(content, encoding) {
 			console.log('encoding', encoding);
 			load(content, res.type, line);
-			window.selectedFileName = res.url;
 		});
 
 		panel.show();

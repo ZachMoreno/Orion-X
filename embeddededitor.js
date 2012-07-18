@@ -88,6 +88,11 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		var src = editor.getContent();
 		RevisionControl.save(url, src);
 		editor.setInput(null, null, null, true);
+		/*
+		** http://stackoverflow.com/questions/7717851/save-file-javascript-with-file-name
+		uriContent = "data:application/octet-stream;filename=filename.txt," + encodeURIComponent(codeMirror.getValue());
+		newWindow=window.open(uriContent, 'filename.txt');
+		*/
 		window.alert("Save hook.");
 	}
 	
@@ -124,7 +129,8 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			status = message;
 			console.log("Orion editor: "+ message);
 		}
-		document.getElementById("status").innerHTML = dirtyIndicator + contentName + '  ' + status;
+		document.getElementById("status").innerHTML = dirtyIndicator + window.selectedFileName + '  ' + status;
+		// contentName works
 	};
 	
 	var editor = new mEditor.Editor({
