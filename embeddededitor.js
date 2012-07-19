@@ -52,7 +52,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	
 	// Canned highlighters for js, java, and css. Grammar-based highlighter for html
 	var syntaxHighlighter = {
-		styler: null, 
+		styler: null,
 		
 		highlight: function(fileName, editor) {
 			if (this.styler) {
