@@ -7,20 +7,18 @@ chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function(
 chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function(panel) {
 	console.log('panel',JSON.stringify(panel),panel);
 
-	if (!editor) console.log('setting editor', window.orionEditor);
 
 	var res               = null,
-		editor            = window.orionEditor,
-		syntaxHighlighter = window.syntaxHighlighter,
+		editor            = null,
 		buffer            = null;
 
 	panel.onShown.addListener(pollForEditor);
 
-	function setEditor() {
-		editor = window.orionEditor;
+	function setEditor(panel_window) {
+		editor = panel_window.orionEditor;
 	}
 
-	function pollForEditor(window) {
+	function pollForEditor(panel_window) {
 		if (window.orionEditor) setEditor(window); // the current listener
 		else setTimeout(pollForEditor, 100);
 	}
@@ -77,7 +75,6 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 	// use Orion panel to open resources
 	chrome.devtools.panels.setOpenResourceHandler(function(resource, line) {
 		console.log('open resource', resource, resource.url, resource.type, line);
-		window.selectedFileName = resource.url;
 		res = resource;
 		res.getContent(function(content, encoding) {
 			console.log('encoding', encoding);
@@ -90,7 +87,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 	// as panels load lazily, grab the editor when it's ready
 	panel.onShown.addListener(function(window) {
 		if (!editor) {
-			console.log('showing editor', window.orionEditor);
+			console.log('showing editor', editor);
 			editor = window.orionEditor;
 			// editor.onSetBreakpoint = setBreakpoint;
 			// editor.onUnsetBreakpoint = unsetBreakpoint;
