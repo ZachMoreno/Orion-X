@@ -158,6 +158,7 @@ Embed Orion
 2. Uncaught TypeError: Object #<Object> has no method 'getContent' embeddededitor.js:88
 3. Trying to use `syntaxHighlighter.highlight()` method withing orionPanel.js to switch the highlighting when a new file is selected
 4. Uncaught TypeError: Cannot call method 'highlight' of undefined orionPanel.js:33
+5. http://stackoverflow.com/questions/7717851/save-file-javascript-with-file-name
 
 ## Enhancements
 1. Google Play Tabs
