@@ -19,7 +19,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 	}
 
 	function pollForEditor(panel_window) {
-		if (window.orionEditor) setEditor(window); // the current listener
+		if (window.orionEditor) setEditor(panel_window); // the current listener
 		else setTimeout(pollForEditor, 100);
 	}
 
@@ -28,7 +28,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 		if (editor) {
 			console.log('loading', content, type, line);
 			editor.setInput(res, null, content);
-			syntaxHighlighter.highlight(res, editor);
+			// syntaxHighlighter.highlight(res, editor);
 			// editor.setOption('mode', (type === 'script' ? 'javascript' : 'css'));
 			// editor.setCursor({line:line||0, ch:0});
 		} else {
