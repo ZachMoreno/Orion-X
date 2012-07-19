@@ -26,8 +26,7 @@ define([
 	"orion/editor/editorFeatures",
 	"orion/editor/contentAssist",
 	"orion/editor/jsContentAssist",
-	"orion/editor/cssContentAssist",
-	"orion"],
+	"orion/editor/cssContentAssist"],
 
 function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist, orionPanel){
 	
