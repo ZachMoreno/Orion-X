@@ -156,6 +156,8 @@ Embed Orion
 ##Save edited files locally
 1. Replaced the existing `save()` method in embeddededitor.js with JJB's `save()` method - successfully logging cursor position
 2. Uncaught TypeError: Object #<Object> has no method 'getContent' embeddededitor.js:88
+3. Trying to use `syntaxHighlighter.highlight()` method withing orionPanel.js to switch the highlighting when a new file is selected
+4. Uncaught TypeError: Cannot call method 'highlight' of undefined orionPanel.js:33
 
 ## Enhancements
 1. Google Play Tabs

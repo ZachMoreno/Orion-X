@@ -129,8 +129,8 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			status = message;
 			console.log("Orion editor: "+ message);
 		}
-		document.getElementById("status").innerHTML = dirtyIndicator + window.selectedFileName + '  ' + status;
-		// contentName works
+		document.getElementById("status").innerHTML = dirtyIndicator + contentName + '  ' + status;
+		// window.selectedFileName doesn't works
 	};
 	
 	var editor = new mEditor.Editor({
@@ -152,6 +152,10 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		}
 		document.getElementById("status").innerHTML = dirtyIndicator + status;
 	});
+
+	/* =================================================
+	Initial editor
+	================================================= */
 	
 	editor.installTextView();
 	// if there is a mechanism to change which file is being viewed, this code would be run each time it changed.
