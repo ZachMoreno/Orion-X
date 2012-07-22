@@ -40,19 +40,8 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		});
 	};
 
-	var contentAssist;
-	var contentAssistFactory = {
-		createContentAssistMode: function(editor) {
-			contentAssist = new mContentAssist.ContentAssist(editor.getTextView());
-			var contentAssistWidget = new mContentAssist.ContentAssistWidget(contentAssist, "contentassist");
-			return new mContentAssist.ContentAssistMode(contentAssist, contentAssistWidget);
-		}
-	};
-	var cssContentAssistProvider = new mCSSContentAssist.CssContentAssistProvider();
-	var jsContentAssistProvider = new mJSContentAssist.JavaScriptContentAssistProvider();
-	
 	/* =================================================
-	moved syntaxHighlight.highlight(); to highlight.js
+	moved contentAssist & syntaxHighlighter to highlight.js
 	================================================= */
 	
 	var annotationFactory = new mEditorFeatures.AnnotationFactory();
