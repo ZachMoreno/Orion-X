@@ -26,9 +26,10 @@ define([
 	"orion/editor/editorFeatures",
 	"orion/editor/contentAssist",
 	"orion/editor/jsContentAssist",
-	"orion/editor/cssContentAssist"],
+	"orion/editor/cssContentAssist",
+	"highlight"],
 
-function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist, orionPanel){
+function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist, mHighlight){
 	
 	var editorDomNode = document.getElementById("orion");
 	
@@ -50,35 +51,9 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	var cssContentAssistProvider = new mCSSContentAssist.CssContentAssistProvider();
 	var jsContentAssistProvider = new mJSContentAssist.JavaScriptContentAssistProvider();
 	
-	// Canned highlighters for js, java, and css. Grammar-based highlighter for html
-	var syntaxHighlighter = {
-		styler: null,
-		
-		highlight: function(fileName, editor) {
-			if (this.styler) {
-				this.styler.destroy();
-				this.styler = null;
-			}
-			if (fileName) {
-				var splits = fileName.split(".");
-				var extension = splits.pop().toLowerCase();
-				var textView = editor.getTextView();
-				var annotationModel = editor.getAnnotationModel();
-				if (splits.length > 0) {
-					switch(extension) {
-						case "js":
-						case "java":
-						case "css":
-							this.styler = new mTextStyler.TextStyler(textView, extension, annotationModel);
-							break;
-						case "html":
-							this.styler = new mTextMateStyler.TextMateStyler(textView, new mHtmlGrammar.HtmlGrammar());
-							break;
-					}
-				}
-			}
-		}
-	};
+	/* =================================================
+	moved syntaxHighlight.highlight(); to highlight.js
+	================================================= */
 	
 	var annotationFactory = new mEditorFeatures.AnnotationFactory();
 
@@ -165,7 +140,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	// placing name & content into editor
 	// PARAMETERS (title, message, contents, contentsSaved)
 	editor.setInput(contentName, null, initialContent);
-	syntaxHighlighter.highlight(contentName, editor);
+	mHighlight.highlight(contentName, editor);
 	editor.highlightAnnotations();
 	contentAssist.addEventListener("Activating", function() {
 		if (/\.css$/.test(contentName)) {

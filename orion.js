@@ -8,9 +8,10 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'orionPanel.html', fun
 	console.log('panel',JSON.stringify(panel),panel);
 
 
-	var res               = null,
-		editor            = null,
-		buffer            = null;
+	var res    = null,
+		editor = null,
+		buffer = null;
+		syntaxHighlighter = null;
 
 	panel.onShown.addListener(pollForEditor);
 
@@ -26,14 +27,16 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'orionPanel.html', fun
 	// load resource code into the editor
 	function load(content, type, line) {
 		if (editor) {
-			console.log('loading', content, type, line);
+			console.log('LOADING CONTENT:\n', content, type, line);
 			editor.setInput(res, null, content);
-			// syntaxHighlighter.highlight(res, editor);
+
+			editor.syntaxHighlighter = syntaxHighlighter;
+			syntaxHighlighter.highlight(res, editor);
 			// editor.setOption('mode', (type === 'script' ? 'javascript' : 'css'));
 			// editor.setCursor({line:line||0, ch:0});
 		} else {
 			buffer = {content:content, type:type, line:line};
-			console.log('buffering load', buffer);
+			console.log('BUFFERING CONTENT:', buffer);
 		}
 	}
 
@@ -74,11 +77,15 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'orionPanel.html', fun
 
 	// use Orion panel to open resources
 	chrome.devtools.panels.setOpenResourceHandler(function(resource, line) {
-		console.log('open resource', resource, resource.url, resource.type, line);
 		res = resource;
-		res.getContent(function(content, encoding) {
-			console.log('encoding', encoding);
-			load(content, res.type, line);
+		resURL = resource.url;
+		resType = resource.type;
+
+		console.log('RESOURCE URL:' + resURL + '\nRESOURCE TYPE:' + resType);
+
+		res.getContent(function(content, encoding, resURL) {
+			console.log('ENCODING', encoding);
+			load(content, resURL, line);
 		});
 
 		panel.show();
@@ -87,8 +94,8 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'orionPanel.html', fun
 	// as panels load lazily, grab the editor when it's ready
 	panel.onShown.addListener(function(window) {
 		if (!editor) {
-			console.log('showing editor', editor);
 			editor = window.orionEditor;
+			console.log('SHOWING EDITOR:', editor);
 			// editor.onSetBreakpoint = setBreakpoint;
 			// editor.onUnsetBreakpoint = unsetBreakpoint;
 		}
