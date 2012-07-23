@@ -7,7 +7,12 @@
 		<title>Embedded Orion Editor</title>
 		<link rel="stylesheet" type="text/css" href="css/default-theme.css" />
 		<link rel="stylesheet" type="text/css" href="/orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.css" />
-
+		
+		<!-- NEEDED to work as an extension in Sirius -->
+		<!-- These files are equivalent to devtools_extension_api.js -->
+		<script src='chrome-extension://fkhgelnmojgnpahkeemhnbjndeeocehc/atopwi/inspector/front-end/ExtensionAPI.js'></script>
+		<script src='chrome-extension://fkhgelnmojgnpahkeemhnbjndeeocehc/atopwi/chromium/DevToolsExtensionAPI.js'></script>
+		<script src='chrome-extension://fkhgelnmojgnpahkeemhnbjndeeocehc/atopwi/devtoolsAdapter/buildExtensionAPI.js'></script>
 		<!-- Require JS in orion.client-->
 		<script src="./orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require.js"></script>
 		
