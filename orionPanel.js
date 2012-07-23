@@ -8,7 +8,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 	console.log('panel',JSON.stringify(panel),panel);
 
 	if (!editor) {
-		console.log('setting editor', window.orionEditor);
+		
 		editor = window.orionEditor;
 	}
 
@@ -18,13 +18,28 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 
 	panel.onShown.addListener(pollForEditor);
 
-	function setEditor() {
-		editor = window.orionEditor;
+	function setEditor(panel_window) {
+		editor = panel_window.orionEditor;
+		console.log('setEditor', editor);
+		if (buffer) {
+			console.log('loading buffer');
+			load(buffer.content, buffer.line);
+			buffer = null;
+		}
 	}
 
-	function pollForEditor(window) {
-		if (window.orionEditor) setEditor(window); // the current listener
-		else setTimeout(pollForEditor, 100);
+	function pollForEditor(panel_window) {
+	    var timeoutId; 
+		if (panel_window && panel_window.orionEditor) {
+  		  setEditor(panel_window); // the current listener
+  		  panel.onShown.removeListener(pollForEditor);
+        } else {
+          setTimeout(pollForEditor.bind(null, panel_window), 100);
+        }
+		
+		if (!panel_window) {
+		    console.log("no panel_window", chrome.extension.lastError);
+		}
 	}
 
 	// load resource code into the editor
@@ -85,21 +100,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function
 
 		panel.show();
 	});
-
-	// as panels load lazily, grab the editor when it's ready
-	panel.onShown.addListener(function(window) {
-		if (!editor) {
-			console.log('showing editor', window.orionEditor);
-			editor = window.orionEditor;
-			// editor.onSetBreakpoint = setBreakpoint;
-			// editor.onUnsetBreakpoint = unsetBreakpoint;
-		}
-		if (buffer) {
-			console.log('loading buffer');
-			load(buffer.content, buffer.line);
-			buffer = null;
-		}
-	});
+;
 
 	// wire WebInspector search bar to the editor
 	panel.onSearch.addListener(function(action, query) {
