@@ -20,10 +20,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'orionPanel.html', fun
 	}
 
 	function pollForEditor(panel_window) {
-		if (window.orionEditor) {
-			setEditor(panel_window); // the current listener
-			syntaxHighlighter = panel_window.syntaxHighlighter;
-		}
+		if (window.orionEditor) setEditor(panel_window); // the current listener
 		else setTimeout(pollForEditor, 100);
 	}
 
@@ -32,6 +29,8 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'orionPanel.html', fun
 		if (editor) {
 			console.log('LOADING CONTENT:\n', content, type, line);
 			editor.setInput(res, null, content);
+
+			editor.syntaxHighlighter = syntaxHighlighter;
 			syntaxHighlighter.highlight(res, editor);
 			// editor.setOption('mode', (type === 'script' ? 'javascript' : 'css'));
 			// editor.setCursor({line:line||0, ch:0});

@@ -4,7 +4,7 @@
 // https://code.google.com/p/chromium/issues/detail?id=135526
 
 window.addEventListener('load', function onLoad() {
-	console.log('PANEL IS LOADED');
+	console.log('Window is loaded.');
     setTimeout(loadJSAsync);
 
     function loadJSAsync() {
@@ -21,10 +21,6 @@ window.addEventListener('load', function onLoad() {
 		/* Original copy of embeddededitor.js is in orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.js - embeddededitor.js in root is a copy to fix path issues */
 		require(["orionEditor"],
 			function(editor) { window.orionEditor = editor;}
-		);
-
-		require(["highlight"],
-			function(syntaxHighlighter) { window.syntaxHighlighter = syntaxHighlighter;}
 		);
     }
 });
