@@ -1,0 +1,36 @@
+/* Credit: GitHub Nav Bar */
+
+#logo {
+	height: 28px; 
+	background: -webkit-linear-gradient(top, #FAFAFA, #EAEAEA); 
+	border-bottom: 1px solid #CACACA;
+}
+
+#actions {
+	float: right;
+	display: block;
+	padding: 7px;
+}
+
+#status {
+	float: left;
+	display: block;
+	padding: 7px;
+	font-size: 13px;
+}
+
+a {
+	color: black;
+	font-weight: bold;
+	font-size: 13px;
+	cursor: default;
+}
+
+a:first-child {
+	padding-right: 10px;
+}
+
+a:hover {
+	color: #4183C4;
+	text-decoration: none;
+}
