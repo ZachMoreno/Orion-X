@@ -27,9 +27,9 @@ define([
 	"orion/editor/contentAssist",
 	"orion/editor/jsContentAssist",
 	"orion/editor/cssContentAssist",
-	"orionPanel"],
+	"orion.js"],
 
-function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist, orionPanel){
+function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist, orion){
 	
 	var editorDomNode = document.getElementById("orion");
 	
