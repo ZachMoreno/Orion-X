@@ -7,6 +7,7 @@
 		<title>Embedded Orion Editor</title>
 		<link rel="stylesheet" type="text/css" href="css/default-theme.css" />
 		<link rel="stylesheet" type="text/css" href="/orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.css" />
+		<link rel="stylesheet" type="text/css" href="css/header.css" />
 		
 		<!-- NEEDED to work as an extension in Sirius -->
 		<!-- These files are equivalent to devtools_extension_api.js -->
@@ -18,13 +19,15 @@
 		
 		<!-- Manifest v2 would not allow for inline script -->
 		<script src="requirePaths.js"></script>
+
 	</head>
     <body class="claro" style="width: 100%; height: 100%;">
-	<div id="logo" style="height: 28px; background: #404040; text-align: left;">
-		<img src="img/skinnyheaderlogo.png" alt="Orion">
-		<span id="bar" style="height: 28px; vertical-align: top; color: #FFFFFF;">
-			<span id="status" style="height: 28px; vertical-align: top; color: #FFFFFF;"></span>
-			<div id="actions" style="height: 28px; padding-right: 8px; vertical-align: top; float: right; color: #FFFFFF;">
+	<div id="logo">
+		<!-- <img src="img/skinnyheaderlogo.png" alt="Orion"> -->
+		<span id="bar">
+			<span id="status"></span>
+			<div id="actions">
+				<a id="create">Create</a>
 				<a id="save">Save</a>
 			</div>
 		</span>
