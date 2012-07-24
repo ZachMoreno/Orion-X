@@ -123,7 +123,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			status = message;
 			console.log("Orion editor: "+ message);
 		}
-		document.getElementById("status").innerHTML = dirtyIndicator + contentName + '  ' + status;
+		document.getElementById("status").innerHTML = "<h1>Orion</h1> <h2>" + dirtyIndicator + contentName + '  ' + status + '</h2>';
 	};
 	
 	var editor = new mEditor.Editor({
