@@ -4,7 +4,7 @@ chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function(
 });
 
 // create the Orion panel
-chrome.devtools.panels.create('Orion', 'img/orion32.png', 'index.html', function(panel) {
+chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function(panel) {
 	console.log('panel',JSON.stringify(panel),panel);
 
 	if (!editor) {
