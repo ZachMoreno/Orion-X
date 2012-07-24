@@ -8,7 +8,6 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	console.log('panel',JSON.stringify(panel),panel);
 
 	if (!editor) {
-		
 		editor = window.orionEditor;
 	}
 
@@ -29,16 +28,16 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	}
 
 	function pollForEditor(panel_window) {
-	    var timeoutId; 
+		var timeoutId;
 		if (panel_window && panel_window.orionEditor) {
-  		  setEditor(panel_window); // the current listener
-  		  panel.onShown.removeListener(pollForEditor);
+			setEditor(panel_window); // the current listener
+			panel.onShown.removeListener(pollForEditor);
         } else {
           setTimeout(pollForEditor.bind(null, panel_window), 100);
         }
 		
 		if (!panel_window) {
-		    console.log("no panel_window", chrome.extension.lastError);
+			console.log("no panel_window", chrome.extension.lastError);
 		}
 	}
 
@@ -100,7 +99,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 
 		panel.show();
 	});
-;
+	
 
 	// wire WebInspector search bar to the editor
 	panel.onSearch.addListener(function(action, query) {
