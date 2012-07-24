@@ -54,8 +54,8 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 
 	var editorInterface = {
 		showContent: function(title, message, contents, contentsSaved) {
-			orionEditor.setInput(title, message, contents, contentsSaved);  // fill the view with content
-			orionEditor.syntaxHighlighter.highlight(title, editor);    // highlight it.
+			editor.setInput(title, message, contents, contentsSaved);  // fill the view with content
+			editor.syntaxHighlighter.highlight(title, editor);    // highlight it.
 		}
 	};
 
