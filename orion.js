@@ -7,15 +7,10 @@ chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function(
 chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function(panel) {
 	console.log('panel',JSON.stringify(panel),panel);
 
-	if (!editor) {
-		editor = window.orionEditor;
-	}
 
 	var res      = null,
-		editor   = window.orionEditor,
+		editor,
 		buffer   = null;
-
-	panel.onShown.addListener(pollForEditor);
 
 	function setEditor(panel_window) {
 		editor = panel_window.orionEditor;
@@ -27,27 +22,25 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 		}
 	}
 
-	function pollForEditor(panel_window) {
-		var timeoutId;
-		if (panel_window && panel_window.orionEditor) {
-			setEditor(panel_window); // the current listener
-			panel.onShown.removeListener(pollForEditor);
-        } else {
-          setTimeout(pollForEditor.bind(null, panel_window), 100);
-        }
-		
-		if (!panel_window) {
-			console.log("no panel_window", chrome.extension.lastError);
-		}
-	}
+    function onPanelWindowReady(panel_window) {
+    	setEditor(panel_window);
+    }
+
+    var firstRun = true;
+    function onPanelShown(panel_window) {
+      if (firstRun) {
+      	panel_window.addEventListener('message', onPanelWindowReady.bind(null, panel_window));
+      	firstRun = false;
+      }
+    }
+
+	panel.onShown.addListener(onPanelShown);
 
 	// load resource code into the editor
 	function load(content, type, line) {
 		if (editor) {
 			console.log('loading', content, type, line);
-			editor.setInput(res, null, content);
-			// editor.setOption('mode', (type === 'script' ? 'javascript' : 'css'));
-			// editor.setCursor({line:line||0, ch:0});
+			editor.showContent(res, null, resContent, null);
 		} else {
 			buffer = {content:content, type:type, line:line};
 			console.log('buffering load', buffer);
@@ -57,9 +50,10 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	// commit changes made to resource code
 	function save() {
 		if (editor) {
-			console.log('saving', editor.getValue());
-			res.setContent(editor.getValue(), true, function(status){
-				if (status && status.isError) console.error('Could\'t save Resource:', status);
+			var content = editor.getContent();
+			console.log('saving', content);
+			res.setContent(content, true, function(status){
+				if (status && status.isError) console.error('Couldn\'t save Resource:', status);
 				else console.log('Resource saved!');
 			});
 		}
@@ -91,10 +85,14 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	chrome.devtools.panels.setOpenResourceHandler(function(resource, line) {
 		console.log('open resource', resource, resource.url, resource.type, line);
 
-		res = resource;
+		res     = resource;
+		resURL	= resource.url;
+		resType = resource.type;
+		resLine = line;
 		res.getContent(function(content, encoding) {
+			resContent = content;
 			console.log('encoding', encoding);
-			load(content, res.type, line);
+			load(resContent, resType, line);
 		});
 
 		panel.show();
@@ -105,8 +103,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	panel.onSearch.addListener(function(action, query) {
 		console.log('search',action,query);
 		if (editor) {
-			var cursor = editor.getSearchCursor(query, null, true);
-			cursor.findNext();
+			editor.search(action, query);
 		}
 	});
 
