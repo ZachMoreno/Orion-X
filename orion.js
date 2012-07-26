@@ -40,7 +40,8 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	function load(content, type, line) {
 		if (editor) {
 			console.log('loading', content, type, line);
-			editor.showContent(res, null, resContent, null);
+			// editor.installTextView();
+			editor.setInput(res, null, resContent, null);
 			editor.syntaxHighlighter(res, editor);
 			editor.highlightAnnotations();
 			editor.contentAssist(res);

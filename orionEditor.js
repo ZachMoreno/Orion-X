@@ -172,7 +172,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	};
 
 	var editorInterface = {
-		showContent: function(title, message, contents, contentsSaved) {
+		setInput: function(title, message, contents, contentsSaved) {
 			editor.setInput(title, message, contents, contentsSaved);  // fill the view with content
 			syntaxHighlighter.highlight(title, editor);    // highlight it.
 		},
@@ -182,8 +182,16 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			cursor.findNext();
 		},
 
+		save: function(editor) {
+			save(editor);
+		},
+
 		getContent: function() {
 			console.error("TODO");
+		},
+
+		installTextView: function() {
+			editor.installTextView();
 		},
 
 		syntaxHighlighter: function(fileName, editor) {
