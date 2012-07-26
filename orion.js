@@ -41,6 +41,9 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 		if (editor) {
 			console.log('loading', content, type, line);
 			editor.showContent(res, null, resContent, null);
+			editor.syntaxHighlighter(res, editor);
+			editor.highlightAnnotations();
+			editor.contentAssist(res);
 		} else {
 			buffer = {content:content, type:type, line:line};
 			console.log('buffering load', buffer);

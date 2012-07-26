@@ -174,14 +174,34 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	var editorInterface = {
 		showContent: function(title, message, contents, contentsSaved) {
 			editor.setInput(title, message, contents, contentsSaved);  // fill the view with content
-			editor.syntaxHighlighter.highlight(title, editor);    // highlight it.
+			syntaxHighlighter.highlight(title, editor);    // highlight it.
 		},
+
 		search: function(action, query) {
 			var cursor = editor.getSearchCursor(query, null, true);
 			cursor.findNext();
 		},
+
 		getContent: function() {
 			console.error("TODO");
+		},
+
+		syntaxHighlighter: function(fileName, editor) {
+			syntaxHighlighter.highlight(fileName, editor);
+		},
+
+		highlightAnnotations: function() {
+			editor.highlightAnnotations();
+		},
+		
+		contentAssist: function(fileName) {
+			contentAssist.addEventListener("Activating", function() {
+				if (/\.css$/.test(contentName)) {
+					contentAssist.setProviders([cssContentAssistProvider]);
+				} else if (/\.js$/.test(contentName)) {
+					contentAssist.setProviders([jsContentAssistProvider]);
+				}
+			});
 		}
 	};
 
