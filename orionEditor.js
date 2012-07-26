@@ -171,12 +171,20 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		}
 	};
 
-	/*if (editor === editor) {
-		return editor;
-	} else {
-		console.log(editor);
-	}*/
+	var editorInterface = {
+		showContent: function(title, message, contents, contentsSaved) {
+			editor.setInput(title, message, contents, contentsSaved);  // fill the view with content
+			editor.syntaxHighlighter.highlight(title, editor);    // highlight it.
+		},
+		search: function(action, query) {
+			var cursor = editor.getSearchCursor(query, null, true);
+			cursor.findNext();
+		},
+		getContent: function() {
+			console.error("TODO");
+		}
+	};
 
-	return editor;
+	return editorInterface;  // clients will get an object that acts like an abstract editor
 	
 });
