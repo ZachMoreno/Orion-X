@@ -8,12 +8,9 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	console.log('panel',JSON.stringify(panel),panel);
 
 
-
 	var res      = null,
 		editor   = window.orionEditor,
 		buffer   = null;
-
-	panel.onShown.addListener(pollForEditor);
 
 	function setEditor(panel_window) {
 		editor = panel_window.orionEditor;
@@ -25,19 +22,19 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 		}
 	}
 
-	function pollForEditor(panel_window) {
-		var timeoutId;
-		if (panel_window && panel_window.orionEditor) {
-			setEditor(panel_window); // the current listener
-			panel.onShown.removeListener(pollForEditor);
-        } else {
-          setTimeout(pollForEditor.bind(null, panel_window), 100);
-        }
-		
-		if (!panel_window) {
-			console.log("no panel_window", chrome.extension.lastError);
-		}
-	}
+    function onPanelWindowReady(panel_window) {
+    	setEditor(panel_window);
+    }
+
+    var firstRun = true;
+    function onPanelShown(panel_window) {
+      if (firstRun) {
+      	panel_window.addEventListener('message', onPanelWindowReady.bind(null, panel_window));
+      	firstRun = false;
+      }
+    }
+
+	panel.onShown.addListener(onPanelShown);
 
 	// load resource code into the editor
 	function load(content, type, line) {
