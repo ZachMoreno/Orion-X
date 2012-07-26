@@ -20,7 +20,7 @@ window.addEventListener('load', function onLoad() {
 
 		/* Original copy of embeddededitor.js is in orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.js - embeddededitor.js in root is a copy to fix path issues */
 		require(["orionEditor"], function(editor){
-		    // Set a global value available to our devtools_page  
+			// Set a global value available to our devtools_page
 			window.orionEditor = editor;
 			// Signal our devtools_page that we are ready
 			window.postMessage({}, "*");

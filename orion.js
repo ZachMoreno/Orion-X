@@ -23,14 +23,14 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	}
 
     function onPanelWindowReady(panel_window) {
-    	setEditor(panel_window);
+		setEditor(panel_window);
     }
 
     var firstRun = true;
     function onPanelShown(panel_window) {
       if (firstRun) {
-      	panel_window.addEventListener('message', onPanelWindowReady.bind(null, panel_window));
-      	firstRun = false;
+		panel_window.addEventListener('message', onPanelWindowReady.bind(null, panel_window));
+		firstRun = false;
       }
     }
 
