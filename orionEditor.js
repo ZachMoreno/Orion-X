@@ -26,10 +26,9 @@ define([
 	"orion/editor/editorFeatures",
 	"orion/editor/contentAssist",
 	"orion/editor/jsContentAssist",
-	"orion/editor/cssContentAssist",
-	"orion.js"],
+	"orion/editor/cssContentAssist"],
 
-function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist, orion){
+function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist){
 	
 	var editorDomNode = document.getElementById("orion");
 	
@@ -53,7 +52,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	
 	// Canned highlighters for js, java, and css. Grammar-based highlighter for html
 	var syntaxHighlighter = {
-		styler: null, 
+		styler: null,
 		
 		highlight: function(fileName, editor) {
 			if (this.styler) {
@@ -63,6 +62,17 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			if (fileName) {
 				var splits = fileName.split(".");
 				var extension = splits.pop().toLowerCase();
+
+				if (extension === 'js') {
+					console.log('EXTENSION: JavaScript');
+				} else if (extension === 'html') {
+					console.log('EXTENSION: HTML');
+				} else if (extension === 'css') {
+					console.log('EXTENSION: CSS');
+				} else if (extension === 'java') {
+					console.log('EXTENSION: Java');
+				}
+
 				var textView = editor.getTextView();
 				var annotationModel = editor.getAnnotationModel();
 				if (splits.length > 0) {
@@ -87,6 +97,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		var url = editor.sourceName;
 		var src = editor.getContent();
 		RevisionControl.save(url, src);
+		saveAs(blob, url);
 		editor.setInput(null, null, null, true);
 		window.alert("Save hook.");
 	}
@@ -121,9 +132,9 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			status =  "Orion editor ERROR: " + message;
 		} else {
 			status = message;
-			console.log("Orion editor: "+ message);
+			console.log("Orion editor: "+ message + " " + dirtyIndicator);
 		}
-		document.getElementById("status").innerHTML = "<h1>Orion</h1> <h2>" + dirtyIndicator + contentName + '  ' + status + '</h2>';
+		document.getElementById("status").innerHTML = "<!-- <img src='img/skinnyheaderlogo.png'/> --><h1>Orion</h1> <h2>" + dirtyIndicator + contentName + '  ' + status + '</h2>';
 	};
 	
 	var editor = new mEditor.Editor({
@@ -172,12 +183,72 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		}
 	};
 
-	/*if (editor === editor) {
-		return editor;
-	} else {
-		console.log(editor);
-	}*/
+	var editorInterface = {
+		setInput: function(title, message, contents, contentsSaved) {
+			editor.setInput(title, message, contents, contentsSaved);  // fill the view with content
+		},
 
-	return editor;
+		search: function(action, query) {
+			var cursor = editor.getSearchCursor(query, null, true);
+			cursor.findNext();
+		},
+
+		save: function(editor) {
+			save(editor);
+		},
+
+		getContent: function() {
+			console.error("TODO");
+		},
+
+		installTextView: function() {
+			editor.installTextView();
+		},
+
+		getTextView: function() {
+			editor.getTextView();
+		},
+
+		getAnnotationModel: function() {
+			editor.getAnnotationModel();
+		},
+
+		textStyler: function(textView, extension, annotatioModel) {
+			TextStyler(textView, extension, annotationModel);
+		},
+
+		textMateStyler: function(textView) {
+			TextMateStyler(textView, new mHtmlGrammar.HtmlGrammar());
+		},
+
+		setContent: function(resURL, resContent, resType, resLine) {
+			console.log('loading', resURL, resLine, resType, resContent);
+			editor.installTextView();
+			editor.setInput(resURL, null, resContent, null);
+			syntaxHighlighter.highlight(resURL, editor);
+			editor.highlightAnnotations();
+			editor.contentAssist(resURL);
+		},
+
+		highlight: function(fileName, editorInterface) {
+			syntaxHighlighter.highlight(fileName, editorInterface); // BUG<< highlighter needs an editor not an interface
+		},
+
+		highlightAnnotations: function() {
+			editor.highlightAnnotations();
+		},
+		
+		contentAssist: function(fileName) {
+			contentAssist.addEventListener("Activating", function() {
+				if (/\.css$/.test(fileName)) {
+					contentAssist.setProviders([cssContentAssistProvider]);
+				} else if (/\.js$/.test(fileName)) {
+					contentAssist.setProviders([jsContentAssistProvider]);
+				}
+			});
+		}
+	};
+
+	return editorInterface;  // clients will get an object that acts like an abstract editor
 	
 });
