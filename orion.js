@@ -9,12 +9,12 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 
 
 	var res      = null,
-		editor,
+		editorInterface,
 		buffer   = null;
 
 	function setEditor(panel_window) {
-		editor = panel_window.orionEditor;
-		console.log('setEditor', editor);
+		editorInterface = panel_window.orionEditor;
+		console.log('setEditor', editorInterface);
 		if (buffer) {
 			console.log('loading buffer');
 			load(buffer.content, buffer.line);
@@ -38,13 +38,13 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 
 	// load resource code into the editor
 	function load(content, type, line) {
-		if (editor) {
+		if (editorInterface) {
 			console.log('loading', resContent, type, line);
-			editor.installTextView();
-			editor.setInput(resURL, null, resContent, null);
-			editor.syntaxHighlighter(resURL, editor);
-			editor.highlightAnnotations();
-			editor.contentAssist(resURL);
+			editorInterface.installTextView();
+			editorInterface.setInput(resURL, null, resContent, null);
+			editorInterface.highlight(resURL, editorInterface);
+			editorInterface.highlightAnnotations();
+			editorInterface.contentAssist(resURL);
 		} else {
 			buffer = {content:content, type:type, line:line};
 			console.log('buffering load', buffer);
@@ -53,8 +53,8 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 
 	// commit changes made to resource code
 	function save() {
-		if (editor) {
-			var content = editor.getContent();
+		if (editorInterface) {
+			var content = editorInterface.getContent();
 			console.log('saving', content);
 			res.setContent(content, true, function(status){
 				if (status && status.isError) console.error('Couldn\'t save Resource:', status);
@@ -96,7 +96,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 		res.getContent(function(content, encoding) {
 			resContent = content;
 			console.log('encoding', encoding);
-			load(resContent, resType, line);
+			load(editorInterface.setContent(resURL, resContent, resType, resLine));
 		});
 
 		panel.show();
@@ -106,8 +106,8 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	// wire WebInspector search bar to the editor
 	panel.onSearch.addListener(function(action, query) {
 		console.log('search',action,query);
-		if (editor) {
-			editor.search(action, query);
+		if (editorInterface) {
+			editorInterface.search(action, query);
 		}
 	});
 

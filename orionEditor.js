@@ -221,8 +221,17 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			TextMateStyler(textView, new mHtmlGrammar.HtmlGrammar());
 		},
 
-		syntaxHighlighter: function(fileName, editor) {
-			syntaxHighlighter.highlight(fileName, editor);
+		setContent: function(resURL, resContent, resType, resLine) {
+			console.log('loading', resURL, resLine, resType, resContent);
+			editor.installTextView();
+			editor.setInput(resURL, null, resContent, null);
+			syntaxHighlighter.highlight(resURL, editor);
+			editor.highlightAnnotations();
+			editor.contentAssist(resURL);
+		},
+
+		highlight: function(fileName, editorInterface) {
+			syntaxHighlighter.highlight(fileName, editorInterface); // BUG<< highlighter needs an editor not an interface
 		},
 
 		highlightAnnotations: function() {
