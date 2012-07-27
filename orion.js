@@ -9,8 +9,8 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 
 
 	var res      = null,
-		editorInterface,
-		buffer   = null;
+		buffer   = null,
+		editorInterface;
 
 	function setEditor(panel_window) {
 		editorInterface = panel_window.orionEditor;
