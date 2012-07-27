@@ -39,12 +39,13 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	// load resource code into the editor
 	function load(content, type, line) {
 		if (editor) {
-			console.log('loading', content, type, line);
-			// editor.installTextView();
-			editor.setInput(res, null, resContent, null);
-			editor.syntaxHighlighter(res, editor);
+			console.log('loading', resContent, type, line);
+			editor.installTextView();
+			editor.setInput(resURL, null, resContent, null);
+			editor.syntaxHighlighter(resURL, editor);
+			console.log(editor.syntaxHighlighter(resURL, editor));
 			editor.highlightAnnotations();
-			editor.contentAssist(res);
+			editor.contentAssist(resURL);
 		} else {
 			buffer = {content:content, type:type, line:line};
 			console.log('buffering load', buffer);

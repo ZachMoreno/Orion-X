@@ -62,6 +62,17 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			if (fileName) {
 				var splits = fileName.split(".");
 				var extension = splits.pop().toLowerCase();
+
+				if (extension === 'js') {
+					console.log('EXTENSION: JavaScript');
+				} else if (extension === 'html') {
+					console.log('EXTENSION: HTML');
+				} else if (extension === 'css') {
+					console.log('EXTENSION: CSS');
+				} else if (extension === 'java') {
+					console.log('EXTENSION: Java');
+				}
+
 				var textView = editor.getTextView();
 				var annotationModel = editor.getAnnotationModel();
 				if (splits.length > 0) {
@@ -122,7 +133,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			status = message;
 			console.log("Orion editor: "+ message);
 		}
-		document.getElementById("status").innerHTML = "<h1>Orion</h1> <h2>" + dirtyIndicator + contentName + '  ' + status + '</h2>';
+		document.getElementById("status").innerHTML = "<!-- <img src='img/skinnyheaderlogo.png'/> --><h1>Orion</h1> <h2>" + dirtyIndicator + contentName + '  ' + status + '</h2>';
 	};
 	
 	var editor = new mEditor.Editor({
@@ -174,7 +185,6 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	var editorInterface = {
 		setInput: function(title, message, contents, contentsSaved) {
 			editor.setInput(title, message, contents, contentsSaved);  // fill the view with content
-			syntaxHighlighter.highlight(title, editor);    // highlight it.
 		},
 
 		search: function(action, query) {
@@ -194,6 +204,22 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			editor.installTextView();
 		},
 
+		getTextView: function() {
+			editor.getTextView();
+		},
+
+		getAnnotationModel: function() {
+			editor.getAnnotationModel();
+		},
+
+		textStyler: function(textView, extension, annotatioModel) {
+			TextStyler(textView, extension, annotationModel);
+		},
+
+		textMateStyler: function(textView) {
+			TextMateStyler(textView, new mHtmlGrammar.HtmlGrammar());
+		},
+
 		syntaxHighlighter: function(fileName, editor) {
 			syntaxHighlighter.highlight(fileName, editor);
 		},
@@ -204,9 +230,9 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		
 		contentAssist: function(fileName) {
 			contentAssist.addEventListener("Activating", function() {
-				if (/\.css$/.test(contentName)) {
+				if (/\.css$/.test(fileName)) {
 					contentAssist.setProviders([cssContentAssistProvider]);
-				} else if (/\.js$/.test(contentName)) {
+				} else if (/\.js$/.test(fileName)) {
 					contentAssist.setProviders([jsContentAssistProvider]);
 				}
 			});
