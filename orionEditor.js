@@ -97,6 +97,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		var url = editor.sourceName;
 		var src = editor.getContent();
 		RevisionControl.save(url, src);
+		saveAs(blob, url);
 		editor.setInput(null, null, null, true);
 		window.alert("Save hook.");
 	}
@@ -131,7 +132,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			status =  "Orion editor ERROR: " + message;
 		} else {
 			status = message;
-			console.log("Orion editor: "+ message);
+			console.log("Orion editor: "+ message + " " + dirtyIndicator);
 		}
 		document.getElementById("status").innerHTML = "<!-- <img src='img/skinnyheaderlogo.png'/> --><h1>Orion</h1> <h2>" + dirtyIndicator + contentName + '  ' + status + '</h2>';
 	};

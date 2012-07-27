@@ -43,7 +43,6 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 			editor.installTextView();
 			editor.setInput(resURL, null, resContent, null);
 			editor.syntaxHighlighter(resURL, editor);
-			console.log(editor.syntaxHighlighter(resURL, editor));
 			editor.highlightAnnotations();
 			editor.contentAssist(resURL);
 		} else {
