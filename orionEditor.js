@@ -203,26 +203,6 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			console.error("TODO");
 		},
 
-		installTextView: function() {
-			editor.installTextView();
-		},
-
-		getTextView: function() {
-			editor.getTextView();
-		},
-
-		getAnnotationModel: function() {
-			editor.getAnnotationModel();
-		},
-
-		textStyler: function(textView, extension, annotatioModel) {
-			TextStyler(textView, extension, annotationModel);
-		},
-
-		textMateStyler: function(textView) {
-			TextMateStyler(textView, new mHtmlGrammar.HtmlGrammar());
-		},
-
 		setContent: function(resURL, resContent, resType, resLine) {
 			console.log('LOADING: ' + resURL + '\n' + resContent + '\n' + resType + '\n' + resLine);
 			editor.installTextView();
@@ -230,14 +210,6 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			syntaxHighlighter.highlight(resURL, editor);
 			editor.highlightAnnotations();
 			this.contentAssist(resURL);
-		},
-
-		highlight: function(fileName, editorInterface) {
-			syntaxHighlighter.highlight(fileName, editorInterface); // BUG<< highlighter needs an editor not an interface
-		},
-
-		highlightAnnotations: function() {
-			editor.highlightAnnotations();
 		}
 	};
 
