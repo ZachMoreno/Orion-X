@@ -229,13 +229,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			editor.setInput(resURL, null, resContent, null);
 			syntaxHighlighter.highlight(resURL, editor);
 			editor.highlightAnnotations();
-			contentAssist.addEventListener("Activating", function() {
-				if (/\.css$/.test(resURL)) {
-					contentAssist.setProviders([cssContentAssistProvider]);
-				} else if (/\.js$/.test(resURL)) {
-					contentAssist.setProviders([jsContentAssistProvider]);
-				}
-			});
+			this.contentAssist(resURL);
 		},
 
 		highlight: function(fileName, editorInterface) {
@@ -244,16 +238,6 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 
 		highlightAnnotations: function() {
 			editor.highlightAnnotations();
-		},
-		
-		contentAssist: function(fileName) {
-			contentAssist.addEventListener("Activating", function() {
-				if (/\.css$/.test(fileName)) {
-					contentAssist.setProviders([cssContentAssistProvider]);
-				} else if (/\.js$/.test(fileName)) {
-					contentAssist.setProviders([jsContentAssistProvider]);
-				}
-			});
 		}
 	};
 
