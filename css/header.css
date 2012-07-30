@@ -38,6 +38,7 @@ a:hover {
 /* Orion logo */
 h1 {
 	font-size: 16px;
+	letter-spacing: 1px;
 	margin-top: -2px;
 }
 

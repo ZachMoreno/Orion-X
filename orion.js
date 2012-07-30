@@ -39,12 +39,8 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	// load resource code into the editor
 	function load(content, type, line) {
 		if (editorInterface) {
-			console.log('loading', resContent, type, line);
-			editorInterface.installTextView();
+			// Doin' work in orionEditor.js
 			editorInterface.setInput(resURL, null, resContent, null);
-			editorInterface.highlight(resURL, editorInterface);
-			editorInterface.highlightAnnotations();
-			editorInterface.contentAssist(resURL);
 		} else {
 			buffer = {content:content, type:type, line:line};
 			console.log('buffering load', buffer);
@@ -101,6 +97,26 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 
 		panel.show();
 	});
+
+
+	// Google BSD license http://code.google.com/google_bsd_license.html
+	// Copyright 2011 Google Inc. johnjbarton@google.com
+
+	/*globals chrome console */
+	//------------------------------------------------------------------------------
+	// Save-to-Orion
+
+	chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function saveToOrion(resource) {
+		resource.getContent(function onContent(content, encoding) {
+			console.log("saveToOrion, getContent "+resource.url, content);
+			var request = { message: "saveResource", url: resource.url, content: content, encoding: encoding };
+			var responseHandler = function(response) {
+				console.log("saveResource response", response);
+			};
+			chrome.extension.sendRequest(request, responseHandler);
+		});
+		console.log("saveToOrion, issued getContent "+resource.url);
+	});
 	
 
 	// wire WebInspector search bar to the editor
@@ -115,13 +131,6 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	// var buttonsave = panel.createStatusBarButton('img/orion16.png', 'Save', false);
 	// buttonsave.onClicked.addListener(save);
 
-	// test inspectedWindow.getResources
-	/*var buttonres = panel.createStatusBarButton('img/orion16.png', 'Resources', false);
-	buttonres.onClicked.addListener(function() {
-		chrome.devtools.inspectedWindow.getResources(function(res){
-		console.log(res);
-    });
-  });*/
 });
 
 

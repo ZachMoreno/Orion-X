@@ -71,6 +71,8 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 					console.log('EXTENSION: CSS');
 				} else if (extension === 'java') {
 					console.log('EXTENSION: Java');
+				} else {
+					console.error('EXTENSION: Unknown');
 				}
 
 				var textView = editor.getTextView();
@@ -222,12 +224,18 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		},
 
 		setContent: function(resURL, resContent, resType, resLine) {
-			console.log('loading', resURL, resLine, resType, resContent);
+			console.log('LOADING: ' + resURL + '\n' + resContent + '\n' + resType + '\n' + resLine);
 			editor.installTextView();
 			editor.setInput(resURL, null, resContent, null);
 			syntaxHighlighter.highlight(resURL, editor);
 			editor.highlightAnnotations();
-			editor.contentAssist(resURL);
+			contentAssist.addEventListener("Activating", function() {
+				if (/\.css$/.test(resURL)) {
+					contentAssist.setProviders([cssContentAssistProvider]);
+				} else if (/\.js$/.test(resURL)) {
+					contentAssist.setProviders([jsContentAssistProvider]);
+				}
+			});
 		},
 
 		highlight: function(fileName, editorInterface) {
