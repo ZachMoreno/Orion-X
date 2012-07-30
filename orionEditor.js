@@ -205,11 +205,10 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 
 		setContent: function(resURL, resContent, resType, resLine) {
 			console.log('LOADING: ' + resURL + '\n' + resContent + '\n' + resType + '\n' + resLine);
-			editor.installTextView();
 			editor.setInput(resURL, null, resContent, null);
 			syntaxHighlighter.highlight(resURL, editor);
 			editor.highlightAnnotations();
-			this.contentAssist(resURL);
+			// this.contentAssist(resURL);
 		}
 	};
 
