@@ -108,21 +108,6 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	});
 
 
-	// Save-to-Orion
-
-	chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function saveToOrion(resource) {
-		resource.getContent(function onContent(content, encoding) {
-			console.log("saveToOrion, getContent "+resource.url, content);
-			var request = { message: "saveResource", url: resource.url, content: content, encoding: encoding };
-			var responseHandler = function(response) {
-				console.log("saveResource response", response);
-			};
-			chrome.extension.sendRequest(request, responseHandler);
-		});
-		console.log("saveToOrion, issued getContent "+resource.url);
-	});
-
-
 	// as panels load lazily, grab the editor when it's ready
 	panel.onShown.addListener(function(window) {
 		if (!editorInterface) {
