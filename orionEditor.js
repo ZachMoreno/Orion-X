@@ -1,14 +1,18 @@
-/*******************************************************************************
+/* ================================================================================
  * @license
- * Copyright (c) 2010, 2011 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials are made 
- * available under the terms of the Eclipse Public License v1.0 
- * (http://www.eclipse.org/legal/epl-v10.html), and the Eclipse Distribution 
- * License v1.0 (http://www.eclipse.org/org/documents/edl-v10.html). 
+ * Copyright (c) 2012, 2011 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License v1.0
+ * (http://www.eclipse.org/legal/epl-v10.html), and the Eclipse Distribution
+ * License v1.0 (http://www.eclipse.org/org/documents/edl-v10.html).
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
- *******************************************************************************/
+ *     Zachariah Moreno
+ *     John J Barton
+ *     John Arthorne
+ *     Ken Walker
+================================================================================ */
 /*global examples orion:true window define*/
 /*jslint browser:true devel:true*/
 
@@ -97,9 +101,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 
 	function save(editor) {
 		var url = editor.sourceName;
-		var src = editor.getContent();
-		RevisionControl.save(url, src);
-		saveAs(blob, url);
+		var src = editorInterface.getContents();
 		editor.setInput(null, null, null, true);
 		window.alert("Save hook.");
 	}
@@ -125,6 +127,12 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		document.getElementById("save").onclick = function() {save(editor);};
 
 	};
+
+	if (editorInterface) {
+		contentName = resURL;
+	} else {
+		contentName = contentName;
+	}
 		
 	var dirtyIndicator = "";
 	var status = "";
@@ -199,7 +207,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			save(editor);
 		},
 
-		getContent: function() {
+		getContents: function() {
 			console.error("TODO");
 		},
 
