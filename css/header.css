@@ -17,19 +17,19 @@
 
 
 #header {
-	height: 28px; 
+	height: 35px; 
 	background: -webkit-linear-gradient(top, #FAFAFA, #EAEAEA); 
 	border-bottom: 1px solid #CACACA;
 }
 
 #actions {
-	float: right;
+	float: left;
 	display: block;
 	padding: 7px;
 }
 
 #status {
-	float: left;
+	float: right;
 	display: block;
 	padding: 7px;
 	font-size: 13px;
@@ -37,13 +37,9 @@
 
 a {
 	color: black;
-	font-weight: bold;
-	font-size: 13px;
+	/*font-weight: bold;*/
+	font-size: 12px;
 	cursor: default;
-}
-
-a:first-child {
-	padding-right: 10px;
 }
 
 a:hover {
@@ -56,14 +52,25 @@ a:hover {
 #orion-logo {
 	font-size: 16px;
 	letter-spacing: 1px;
-	margin-top: -2px;
+	margin-top: 2px;
+	display: block;
+	font-weight: bold;
+}
+
+#actions .btn-group {
+	margin-left: 60px;
+	margin-top: -24px;
+}
+
+.btn-small {
+	font-size: 12px;
 }
 
 /* status */
 h2 {
 	diplay: block;
-	margin-top: -15px;
+	margin-top: -5px;
 	margin-left: 60px;
 	font-weight: normal;
-	font-size: 12px;
+	font-size: 13px;
 }

@@ -138,7 +138,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			status = message;
 			console.log("Orion editor: "+ message + " " + dirtyIndicator);
 		}
-		document.getElementById("status").innerHTML = "<!-- <img src='img/skinnyheaderlogo.png'/> --><a href='#' id='orion-logo' rel='popover'>Orion</a> <h2>" + dirtyIndicator + contentName + '  ' + status + '</h2>';
+		document.getElementById("status").innerHTML = "<h2>" + dirtyIndicator + "<strong>" + contentName + "</strong> - " + '  ' + status + '</h2>';
 	};
 	
 	var editor = new mEditor.Editor({
@@ -226,6 +226,7 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 			console.log('LOADING: ' + resURL + '\n' + resContent + '\n' + resType + '\n' + resLine);
 			editor.setInput(resURL, null, resContent, null);
 			syntaxHighlighter.highlight(resURL, editor);
+			contentName = resURL;
 			editor.highlightAnnotations();
 			// this.contentAssist(resURL);
 		}

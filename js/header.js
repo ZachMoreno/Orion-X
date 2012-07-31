@@ -17,9 +17,12 @@
 ================================================================================ */
 
 $("#orion-logo").popover({
-	placement: 'bottom',
+	placement: 'right',
 	animation: true,
 	trigger: 'hover',
 	title: 'Orion-X DevTools Extension',
 	content: 'Content'
 });
+
+
+$('.dropdown-toggle').dropdown();

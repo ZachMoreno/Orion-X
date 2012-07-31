@@ -23,6 +23,8 @@
 		<title>Embedded Orion Editor</title>
 		<link rel="stylesheet" type="text/css" href="css/default-theme.css" />
 		<link rel="stylesheet" type="text/css" href="/orion.client/bundles/org.eclipse.orion.client.editor/web/examples/editor/embeddededitor.css" />
+		<!-- Twitter Bootstrap -->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 		<link rel="stylesheet" type="text/css" href="css/header.css" />
 		
 		<!-- NEEDED to work as an extension in Sirius -->
@@ -45,9 +47,10 @@
 			}
 		</script>
 
-		<!-- Twitter Bootstrap - Popover -->
+		<!-- Twitter Bootstrap Plugins -->
 		<script src="js/bootstrap-tooltip.js"></script>
 		<script src="js/bootstrap-popover.js"></script>
+		<script src="js/bootstrap-dropdown.js"></script>
 
 		<script src="js/header.js"></script>
 
@@ -58,8 +61,36 @@
 		<span id="bar">
 			<span id="status"></span>
 			<div id="actions">
-				<a id="create">Create</a>
-				<a id="save">Save</a>
+				<a href='#' id="orion-logo" rel="popover" data-content="It's so simple to create a tooltop for my website!" data-original-title="Twitter Bootstrap Popover">Orion</a> 
+
+				<!-- <div class="btn-toolbar"> -->
+					<div class="btn-group">
+						<a class="btn dropdown-toggle btn-small" data-toggle="dropdown" href="#">
+							File
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a id="create">New File</a></li>
+							<li><a id="save">Save As...</a></li>
+						</ul>
+					</div>
+
+					<!-- <div class="btn-group">
+						<a class="btn dropdown-toggle btn-small" data-toggle="dropdown" href="#">
+							Edit
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a id="undo">Undo</a></li>
+							<li><a id="redo">Redo</a></li>
+							<li class="divider"></li>
+							<li><a id="cut">Cut</a></li>
+							<li><a id="copy">Copy</a></li>
+							<li><a id="paste">Paste</a></li>
+						</ul>
+					</div> -->
+				<!-- </div> -->
+
 			</div>
 		</span>
 	</div>
