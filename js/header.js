@@ -12,6 +12,7 @@
  *     John J Barton
  *     John Arthorne
  *     Ken Walker
+ *     jQuery
  *     Twitter Bootstrap
 ================================================================================ */
 
