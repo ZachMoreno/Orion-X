@@ -30,15 +30,30 @@
 		<script src='chrome-extension://fkhgelnmojgnpahkeemhnbjndeeocehc/atopwi/inspector/front-end/ExtensionAPI.js'></script>
 		<script src='chrome-extension://fkhgelnmojgnpahkeemhnbjndeeocehc/atopwi/chromium/DevToolsExtensionAPI.js'></script>
 		<script src='chrome-extension://fkhgelnmojgnpahkeemhnbjndeeocehc/atopwi/devtoolsAdapter/buildExtensionAPI.js'></script>
+
 		<!-- Require JS in orion.client-->
 		<script src="./orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require.js"></script>
 		
 		<!-- Manifest v2 would not allow for inline script -->
 		<script src="requireConfig.js"></script>
 
+		<!-- jQuery with fallback-->
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript">
+			if (typeof jQuery == 'undefined') {
+				document.write(unescape("%3Cscript src='/js/jquery-1.7.2.min.js' type='text/javascript'%3E%3C/script%3E"));
+			}
+		</script>
+
+		<!-- Twitter Bootstrap - Popover -->
+		<script src="js/bootstrap-tooltip.js"></script>
+		<script src="js/bootstrap-popover.js"></script>
+
+		<script src="js/header.js"></script>
+
 	</head>
     <body class="claro" style="width: 100%; height: 100%;">
-	<div id="logo">
+	<div id="header">
 		<!-- <img src="img/skinnyheaderlogo.png" alt="Orion"> -->
 		<span id="bar">
 			<span id="status"></span>

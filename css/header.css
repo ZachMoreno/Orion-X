@@ -16,7 +16,7 @@
 ================================================================================ */
 
 
-#logo {
+#header {
 	height: 28px; 
 	background: -webkit-linear-gradient(top, #FAFAFA, #EAEAEA); 
 	border-bottom: 1px solid #CACACA;
@@ -47,12 +47,13 @@ a:first-child {
 }
 
 a:hover {
+	/* GitHub Blue #4183C4 */
 	color: #4183C4;
 	text-decoration: none;
 }
 
-/* Orion logo */
-h1 {
+/* Orion logo H2 */
+#orion-logo {
 	font-size: 16px;
 	letter-spacing: 1px;
 	margin-top: -2px;
@@ -61,7 +62,7 @@ h1 {
 /* status */
 h2 {
 	diplay: block;
-	margin-top: -25px;
+	margin-top: -15px;
 	margin-left: 60px;
 	font-weight: normal;
 	font-size: 12px;
