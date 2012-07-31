@@ -127,12 +127,6 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		document.getElementById("save").onclick = function() {save(editor);};
 
 	};
-
-	if (editorInterface) {
-		contentName = resURL;
-	} else {
-		contentName = contentName;
-	}
 		
 	var dirtyIndicator = "";
 	var status = "";
@@ -155,7 +149,15 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		contentAssistFactory: contentAssistFactory,
 		keyBindingFactory: keyBindingFactory,
 		statusReporter: statusReporter,
-		domNode: editorDomNode
+		domNode: editorDomNode,
+
+		setMarker: function(line, marker) {
+			console.error("TODO");
+		},
+
+		clearMarker: function(line) {
+			console.error("TODO");
+		}
 	});
 		
 	editor.addEventListener("DirtyChanged", function(evt) {
@@ -209,6 +211,15 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 
 		getContents: function() {
 			console.error("TODO");
+		},
+
+		// set and unset breakpoints with the extension API
+		setBreakpoint: function(line) {
+			editor.setMarker(line, marker);
+		},
+
+		unsetBreakpoint: function(line) {
+			editor.clearMarker(line);
 		},
 
 		setContent: function(resURL, resContent, resType, resLine) {

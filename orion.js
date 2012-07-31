@@ -74,14 +74,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 			});
 		}
 	}
-
-	// set and unset breakpoints with the extension API
-	function setBreakpoint(line) {
-		console.log('TODO add breakpoint at line',line);
-	}
-	function unsetBreakpoint(line) {
-		console.log('TODO remove breakpoint at line',line);
-	}
+	
 
 	// listen to breakpoint events from the extension API
 	/*
@@ -115,11 +108,6 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	});
 
 
-	// Google BSD license http://code.google.com/google_bsd_license.html
-	// Copyright 2011 Google Inc. johnjbarton@google.com
-
-	/*globals chrome console */
-	//------------------------------------------------------------------------------
 	// Save-to-Orion
 
 	chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function saveToOrion(resource) {
@@ -132,6 +120,20 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 			chrome.extension.sendRequest(request, responseHandler);
 		});
 		console.log("saveToOrion, issued getContent "+resource.url);
+	});
+
+
+	// as panels load lazily, grab the editor when it's ready
+	panel.onShown.addListener(function(window) {
+		if (!editorInterface) {
+			editorInterface.onSetBreakpoint = setBreakpoint;
+			editorInterface.onUnsetBreakpoint = unsetBreakpoint;
+		}
+		if (buffer) {
+			console.log('loading buffer');
+			load(buffer.content, buffer.line);
+			buffer = null;
+		}
 	});
 	
 
