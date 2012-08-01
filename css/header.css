@@ -57,9 +57,16 @@ a:hover {
 	font-weight: bold;
 }
 
-#actions .btn-group {
-	margin-left: 65px;
+.btn-toolbar {
 	margin-top: -24px;
+}
+
+#actions .btn-group:first-child {
+	margin-left: 65px;
+}
+
+#actions .btn-group:last-child {
+	margin-left: -7px;
 }
 
 .btn-mini {

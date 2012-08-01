@@ -103,7 +103,15 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		var url = editor.sourceName;
 		var src = editorInterface.getContents();
 		editor.setInput(null, null, null, true);
-		window.alert("Save hook.");
+		window.alert("Save");
+	}
+
+	function prettyPrint(content) {
+		window.alert("Pretty Print");
+	}
+
+	function newFile() {
+		window.alert("New File");
 	}
 	
 	var keyBindingFactory = function(editor, keyModeStack, undoStack, contentAssist) {
@@ -125,6 +133,10 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		
 		// speaking of save...
 		document.getElementById("save").onclick = function() {save(editor);};
+
+		document.getElementById("prettyprint").onclick = function() {prettyPrint();};
+
+		document.getElementById("create").onclick = function() {newFile();};
 
 	};
 		
@@ -172,8 +184,8 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 	editor.installTextView();
 	// if there is a mechanism to change which file is being viewed, this code would be run each time it changed.
 	
-	var contentName = "sample.js";  // for example, a file name, something the user recognizes as the content.
-	var initialContent = "// Right-click on a file in the Resources panel & select Open with Orion\n\nconsole.log('this is some javascript code');";
+	var contentName = "instructions.js";  // for example, a file name, something the user recognizes as the content.
+	var initialContent = "/*\n	Select settings > Open links in > Orion-X\n\n	Click any link in the Elements panel to edit with Orion\n		or\n	Right-click on a file in the Resources panel & select Open with Orion \n*/";
 
 	// placing name & content into editor
 	// PARAMETERS (title, message, contents, contentsSaved)

@@ -34,4 +34,28 @@
 // });
 
 
-$('.dropdown-toggle').dropdown();
+$(window).load(function() {
+	$('.dropdown-toggle').dropdown();
+});
+
+
+$(window).load(function() {
+	$("a.fancybox").fancybox({
+		'hideOnContentClick': false,
+		'showCloseButton'   : true,
+		'transitionIn'      : 'elastic',
+		'transitionOut'     : 'elastic',
+		'speedIn'           : 600,
+		'speedOut'          : 200,
+		'overlayColor'      : '#fff'
+	});
+	
+	$("a.iframe").fancybox({
+		'hideOnContentClick': false,
+		'transitionIn'      : 'elastic',
+		'transitionOut'     : 'elastic',
+		'speedIn'           : 600,
+		'speedOut'          : 200
+	});
+});
+
