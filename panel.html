@@ -47,6 +47,9 @@
 			}
 		</script>
 
+		<!-- Live Reload -->
+		<script src="js/livereload.js"></script>
+
 		<!-- Twitter Bootstrap Plugins -->
 		<script src="js/bootstrap-tooltip.js"></script>
 		<script src="js/bootstrap-popover.js"></script>
@@ -61,17 +64,19 @@
 		<span id="bar">
 			<span id="status"></span>
 			<div id="actions">
-				<a href='#' id="orion-logo" rel="popover" data-content="It's so simple to create a tooltop for my website!" data-original-title="Twitter Bootstrap Popover">Orion</a> 
+				<a href='#' id="orion-logo" rel="popover">Orion</a> 
 
 				<!-- <div class="btn-toolbar"> -->
 					<div class="btn-group">
-						<a class="btn dropdown-toggle btn-small" data-toggle="dropdown" href="#">
+						<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">
 							File
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a id="create">New File</a></li>
-							<li><a id="save">Save As...</a></li>
+							<li><a id="create"><!-- <i class="icon-file"></i> -->New File</a></li>
+							<li><a id="save"><!-- <i class="icon-pencil"></i> -->Save As...</a></li>
+							<li class="divider"></li>
+							<li><a id="prettyprint">Pretty Print</a></li>
 						</ul>
 					</div>
 
@@ -88,8 +93,8 @@
 							<li><a id="copy">Copy</a></li>
 							<li><a id="paste">Paste</a></li>
 						</ul>
-					</div> -->
-				<!-- </div> -->
+					</div>
+				</div> -->
 
 			</div>
 		</span>

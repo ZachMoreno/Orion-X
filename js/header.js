@@ -16,13 +16,22 @@
  *     Twitter Bootstrap
 ================================================================================ */
 
-$("#orion-logo").popover({
-	placement: 'right',
-	animation: true,
-	trigger: 'hover',
-	title: 'Orion-X DevTools Extension',
-	content: 'Content'
-});
+// Popover works but because of where the Orion logo is, it is getting cut off - offset works kinds
+
+// $(document).ready(function() {
+//     $("a[rel=popover]")
+//         .popover({
+//             placement: 'bottom',
+//			animation: true,
+//			trigger: 'hover',
+//			title: 'Orion-X DevTools Extension',
+//			content: 'Content',
+//			offset: -80
+//         })
+//         .click(function(e) {
+//             e.preventDefault();
+//         });
+// });
 
 
 $('.dropdown-toggle').dropdown();
