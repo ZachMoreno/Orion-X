@@ -54,10 +54,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 
 	// load resource code into the editor
 	function load(content, type, line) {
-		if (editorInterface) {
-			// Doin' work in orionEditor.js
-			editorInterface.setInput(resURL, null, resContent, null);
-		} else {
+		if (!editorInterface) {
 			buffer = {content:content, type:type, line:line};
 			console.log('buffering load', buffer);
 		}
@@ -101,6 +98,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 		res.getContent(function(content, encoding) {
 			resContent = content;
 			console.log('encoding', encoding);
+			// Doin' work
 			load(editorInterface.setContent(resURL, resContent, resType, resLine));
 		});
 

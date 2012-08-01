@@ -21,6 +21,8 @@
 
 define([
 	"orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require",
+	"orion.client/bundles/org.eclipse.orion.client.core/web/orion/jslintPlugin",
+	"orion.client/bundles/org.eclipse.orion.client.core/web/orion/jslintworker",
 	"orion/textview/textView",
 	"orion/textview/keyBinding",
 	"examples/textview/textStyler",
@@ -32,7 +34,7 @@ define([
 	"orion/editor/jsContentAssist",
 	"orion/editor/cssContentAssist"],
 
-function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist){
+function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGrammar, mEditor, mEditorFeatures, mContentAssist, mJSContentAssist, mCSSContentAssist){
 	
 	var editorDomNode = document.getElementById("orion");
 	
@@ -207,11 +209,9 @@ function(require, mTextView, mKeyBinding, mTextStyler, mTextMateStyler, mHtmlGra
 		}
 	};
 
-	var editorInterface = {
-		setInput: function(title, message, contents, contentsSaved) {
-			editor.setInput(title, message, contents, contentsSaved);  // fill the view with content
-		},
+	// var jslint = mJSLintPlugin.jslint(resContent);
 
+	var editorInterface = {
 		search: function(action, query) {
 			var cursor = editor.getSearchCursor(query, null, true);
 			cursor.findNext();
