@@ -106,6 +106,16 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	});
 
 
+	chrome.devtools.inspectedWindow.getResources(function(resources) {
+		console.error('Inspected Page Resources: ');
+		function logArrayElements(element, index, array) {
+			console.log(element.url);
+			// editorInterface.openResources(element.url);
+		}
+		resources.forEach(logArrayElements);
+	});
+
+
 	// as panels load lazily, grab the editor when it's ready
 	panel.onShown.addListener(function(window) {
 		if (!editorInterface) {

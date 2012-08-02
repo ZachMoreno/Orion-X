@@ -115,7 +115,7 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 	function newFile() {
 		window.alert("New File");
 	}
-	
+
 	var keyBindingFactory = function(editor, keyModeStack, undoStack, contentAssist) {
 		
 		// Create keybindings for generic editing
@@ -139,6 +139,8 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 		document.getElementById("prettyprint").onclick = function() {prettyPrint();};
 
 		document.getElementById("create").onclick = function() {newFile();};
+
+		document.getElementById("open").onclick = function() {editorInterface.openResources();};
 
 	};
 		
@@ -209,6 +211,8 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 		}
 	};
 
+	var resourceList = null;
+
 	// var jslint = mJSLintPlugin.jslint(resContent);
 
 	var editorInterface = {
@@ -223,6 +227,11 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 
 		getContents: function() {
 			console.error("TODO");
+		},
+
+		openResources: function(resources) {
+			resourceList = resources;
+			console.log(resourcesList);
 		},
 
 		// set and unset breakpoints with the extension API
