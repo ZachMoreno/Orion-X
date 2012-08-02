@@ -49,21 +49,21 @@ a:hover {
 }
 
 #stars-logo {
-	margin-top: -5px;
+	margin-top: -6px;
 }
 
 /* Orion logo H2 */
 #orion-logo {
 	font-size: 16px;
 	letter-spacing: 1px;
-	margin-top: -24px;
+	margin-top: -32px;
 	margin-left: 30px;
 	display: block;
 	font-weight: bold;
 }
 
 .btn-toolbar {
-	margin-top: -24px;
+	margin-top: -33px;
 }
 
 #actions .btn-group:first-child {
