@@ -119,8 +119,9 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	// as panels load lazily, grab the editor when it's ready
 	panel.onShown.addListener(function(window) {
 		if (!editorInterface) {
-			editorInterface.onSetBreakpoint = setBreakpoint;
-			editorInterface.onUnsetBreakpoint = unsetBreakpoint;
+			document.getElementsByClassName("textViewLeftRuler").oncick = line;
+			editorInterface.setBreakpoint(line);
+			editorInterface.unsetBreakpoint(line);
 		}
 		if (buffer) {
 			console.log('loading buffer');

@@ -49,13 +49,5 @@ $(window).load(function() {
 		'speedOut'          : 200,
 		'overlayColor'      : '#fff'
 	});
-	
-	$("a.iframe").fancybox({
-		'hideOnContentClick': false,
-		'transitionIn'      : 'elastic',
-		'transitionOut'     : 'elastic',
-		'speedIn'           : 600,
-		'speedOut'          : 200
-	});
 });
 

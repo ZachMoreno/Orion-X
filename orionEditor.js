@@ -136,7 +136,7 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 		// speaking of save...
 		document.getElementById("save").onclick = function() {save(editor);};
 
-		document.getElementById("prettyprint").onclick = function() {prettyPrint();};
+		// document.getElementById("prettyprint").onclick = function() {prettyPrint();};
 
 		document.getElementById("create").onclick = function() {newFile();};
 
@@ -167,14 +167,21 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 		statusReporter: statusReporter,
 		domNode: editorDomNode,
 
-		setMarker: function(line, marker) {
-			console.error("TODO");
+		setMarker: function(line) {
+			document.getElementsByClassName("textViewLeftRuler").oncick = function(line) {
+				innerHTML = "*";
+				console.error("Set breakpoint on line: " + line);
+			};
 		},
 
 		clearMarker: function(line) {
-			console.error("TODO");
+			document.getElementsByClassName("textViewLeftRuler").oncick = function(line) {
+				innerHTML = "";
+				console.error("Removed breakpoint on line: " + line);
+			};
 		}
 	});
+
 		
 	editor.addEventListener("DirtyChanged", function(evt) {
 		if (editor.isDirty()) {
@@ -232,11 +239,13 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 		openResources: function(resources) {
 			resourceList = resources;
 			console.log(resourcesList);
+
+			document.getElementById("").onclick = function() {newFile();};
 		},
 
 		// set and unset breakpoints with the extension API
 		setBreakpoint: function(line) {
-			editor.setMarker(line, marker);
+			editor.setMarker(line);
 		},
 
 		unsetBreakpoint: function(line) {
