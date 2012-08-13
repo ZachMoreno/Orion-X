@@ -12,6 +12,7 @@
 
 
 define(["orion/assert", "orion/serviceregistry", "orion/pluginregistry", "orion/Deferred"], function(assert, mServiceregistry, mPluginregistry, Deferred) {
+	var Plugin = mPluginregistry.Plugin;
 	var tests = {};
 	
 	tests["test empty registry"] = function() {
@@ -42,6 +43,22 @@ define(["orion/assert", "orion/serviceregistry", "orion/pluginregistry", "orion/
 			pluginRegistry.shutdown();
 		});
 		return promise;
+	};
+
+	tests["test install same plugin URL"] = function() {
+		var storage = {};
+		var serviceRegistry = new mServiceregistry.ServiceRegistry();
+		var pluginRegistry = new mPluginregistry.PluginRegistry(serviceRegistry, storage);
+
+		var promise1 = pluginRegistry.installPlugin("testPlugin.html");
+		var promise2 = pluginRegistry.installPlugin("testPlugin.html");
+		return promise1.then(function(plugin1) {
+			return promise2.then(function(plugin2) {
+				assert.equal(plugin1, plugin2, "Got the same Plugin instance");
+				plugin1.uninstall();
+				pluginRegistry.shutdown();
+			});
+		});
 	};
 	
 		tests["test install worker plugin"] = function() {
@@ -80,7 +97,7 @@ define(["orion/assert", "orion/serviceregistry", "orion/pluginregistry", "orion/
 		var promise = pluginRegistry.installPlugin("testPlugin.html").then(function(plugin) {
 			var pluginInfo = {
 				location: plugin.getLocation(),
-				data: plugin.getData()
+				data: plugin._getData()
 			};
 
 			assert.equal(pluginRegistry.getPlugins().length, 1);
@@ -196,8 +213,8 @@ define(["orion/assert", "orion/serviceregistry", "orion/pluginregistry", "orion/
 			pluginRegistry.addEventListener("pluginLoaded", function(plugin) {
 				try {
 					assert.ok(!!plugin, "plugin not null");
-					assert.equal(plugin.getData().services.length, 1);
-					assert.equal(plugin.getData().services[0].properties.name, "echotest");
+					assert.equal(plugin.getServiceReferences().length, 1);
+					assert.equal(plugin.getServiceReferences()[0].getProperty("name"), "echotest");
 					promise.resolve();
 				} catch(e) {
 					promise.reject(e);
@@ -272,7 +289,7 @@ define(["orion/assert", "orion/serviceregistry", "orion/pluginregistry", "orion/
 		});
 	};
 
-	tests["test pluginregistry events pluginAdded, pluginRemoved"] = function() {
+	tests["test pluginregistry events pluginLoaded"] = function() {
 		var storage = {};
 		var serviceRegistry = new mServiceregistry.ServiceRegistry();
 		var pluginRegistry = new mPluginregistry.PluginRegistry(serviceRegistry, storage);
@@ -281,11 +298,11 @@ define(["orion/assert", "orion/serviceregistry", "orion/pluginregistry", "orion/
 		assert.equal(serviceRegistry.getServiceReferences().length, 0);		
 		
 		var promise = new Deferred();
-		pluginRegistry.addEventListener("pluginAdded", function(plugin) {
+		pluginRegistry.addEventListener("pluginLoaded", function(plugin) {
 			try {
 				assert.ok(!!plugin, "plugin not null");
-				assert.equal(plugin.getData().services.length, 1);
-				assert.equal(plugin.getData().services[0].properties.name, "echotest");
+					assert.equal(plugin.getServiceReferences().length, 1);
+					assert.equal(plugin.getServiceReferences()[0].getProperty("name"), "echotest");
 				promise.resolve();
 			} catch(e) {
 				promise.reject(e);
@@ -337,6 +354,47 @@ define(["orion/assert", "orion/serviceregistry", "orion/pluginregistry", "orion/
 			return promise;
 		};
 	}
+
+	tests["test __plugin__ property"] = function() {
+		var storage = {};
+		var serviceRegistry = new mServiceregistry.ServiceRegistry();
+		var pluginRegistry = new mPluginregistry.PluginRegistry(serviceRegistry, storage);
+		return pluginRegistry.installPlugin("testPlugin.html").then(function(plugin) {
+			var serviceReferences = serviceRegistry.getServiceReferences("test");
+			assert.equal(serviceReferences.length, 1);
+			var __plugin__ = serviceReferences[0].getProperty("__plugin__");
+			assert.equal(__plugin__, plugin.getLocation());
+
+			plugin.uninstall();
+			pluginRegistry.shutdown();
+		});
+	};
+
+	tests["test plugin states"] = function() {
+		var storage = {};
+		var serviceRegistry = new mServiceregistry.ServiceRegistry();
+		var pluginRegistry = new mPluginregistry.PluginRegistry(serviceRegistry, storage);
+		// Eager-load case
+		return pluginRegistry.installPlugin("testPlugin.html").then(function(plugin) {
+			var pluginLocation = plugin.getLocation();
+			assert.equal(plugin.getState(), Plugin.LOADED, "Plugin loaded (eager)");
+			pluginRegistry.shutdown();
+
+			// Lazy-load case
+			serviceRegistry = new mServiceregistry.ServiceRegistry();
+			pluginRegistry = new mPluginregistry.PluginRegistry(serviceRegistry, storage);
+			return pluginRegistry.startup(["testPlugin.html"]).then(function() {
+				plugin = pluginRegistry.getPlugin(pluginLocation);
+				assert.equal(plugin.getState(), Plugin.INSTALLED, "Plugin installed");
+				return serviceRegistry.getService("test").test().then(function() {
+					assert.equal(plugin.getState(), Plugin.LOADED, "Plugin loaded (lazy)");
+					plugin.uninstall();
+					assert.equal(plugin.getState(), Plugin.UNINSTALLED, "Plugin uninstalled");
+					pluginRegistry.shutdown();
+				});
+			});
+		});
+	};
 
 	return tests;
 });

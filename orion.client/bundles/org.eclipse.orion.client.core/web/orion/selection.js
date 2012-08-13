@@ -10,7 +10,7 @@
  *******************************************************************************/
  /*global define */
  
-define(["dojo"], function(dojo){
+define(["dojo","orion/EventTarget"], function(dojo, EventTarget){
 
 	/**
 	 * Constructs a new selection service. Clients should obtain a selection service
@@ -23,10 +23,12 @@ define(["dojo"], function(dojo){
 	 * in one component can serve as the input of another component.
 	 */	
 	function Selection(serviceRegistry, selectionServiceId) {
-		if (!selectionServiceId)
+		if (!selectionServiceId) {
 			selectionServiceId = "orion.page.selection"; //$NON-NLS-0$
+		}
 		
 		this._serviceRegistry = serviceRegistry;
+		EventTarget.attach(this);
 		this._serviceRegistration = serviceRegistry.registerService(selectionServiceId, this);
 		this._selections = [];
 	}
@@ -68,7 +70,7 @@ define(["dojo"], function(dojo){
 			} else {
 				this._selections = null;
 			}
-			this._serviceRegistration.dispatchEvent("selectionChanged", this._getSingleSelection(), this._selections); //$NON-NLS-0$
+			this.dispatchEvent("selectionChanged", this._getSingleSelection(), this._selections); //$NON-NLS-0$
 		}
 	};
 	Selection.prototype.constructor = Selection;

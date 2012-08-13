@@ -11,6 +11,7 @@
 /*global define*/
 define(['orion/serviceTracker'], function(ServiceTracker) {
 	var PROPERTY_CLASSES = 'classes', PROPERTY_DESIGNATES = 'designates'; //$NON-NLS-0$ //$NON-NLS-1$
+	var METATYPE_SERVICE = 'orion.cm.metatype';
 	var PropertyTypeImpl, ObjectClassImpl;
 
 	/**
@@ -26,7 +27,7 @@ define(['orion/serviceTracker'], function(ServiceTracker) {
 				array.forEach(func);
 			}
 		}
-		var tracker = new ServiceTracker(serviceRegistry, 'orion.metatype'); //$NON-NLS-0$
+		var tracker = new ServiceTracker(serviceRegistry, METATYPE_SERVICE); //$NON-NLS-0$
 		var ocsMap = this.ocsMap = {};	// OC Id {String} -> {ObjectClass}
 		var pidsMap = this.pidsMap = {}; // PID {String} -> {ObjectClass}
 		tracker.addingService = function(serviceRef) {
@@ -60,8 +61,11 @@ define(['orion/serviceTracker'], function(ServiceTracker) {
 		 * @returns {orion.metatype.ObjectClass} The object class, or <code>null</code> if no object class 
 		 * has been designated for the given PID.
 		 */
-		getObjectClass: function(pid) {
+		getObjectClassForPid: function(pid) {
 			return this.pidsMap[pid] || null;
+		},
+		getObjectClass: function(classId) {
+			return this.ocsMap[classId] || null;
 		}
 	};
 
@@ -112,6 +116,7 @@ define(['orion/serviceTracker'], function(ServiceTracker) {
 		this.id = attrJson.id;
 		this.name = attrJson.name || null;
 		this.type = attrJson.type || 'string'; //$NON-NLS-0$
+		this.defaultValue = attrJson.defaultValue || null;
 		if (!this.id) {
 			throw 'Missing "id" property: ' + JSON.stringify(attrJson); //$NON-NLS-0$
 		}
@@ -128,6 +133,9 @@ define(['orion/serviceTracker'], function(ServiceTracker) {
 		},
 		getType: function() {
 			return this.type;
+		},
+		getDefaultValue: function() {
+			return this.defaultValue;
 		}
 	};
 
@@ -183,6 +191,12 @@ define(['orion/serviceTracker'], function(ServiceTracker) {
 		 * <li><code>'number'</code></li>
 		 * <li><code>'string'</code></li>
 		 * </ul>
+		 */
+		/**
+		 * @name orion.metatype.PropertyType#getDefaultValue
+		 * @function
+		 * @description Returns the default value.
+		 * @returns {Object} The default value, or <code>null</code> if no default exists.
 		 */
 	return {
 		MetaTypeRegistry: MetaTypeRegistry

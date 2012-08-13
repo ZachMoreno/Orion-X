@@ -18,7 +18,7 @@ define(['require', 'dojo', 'dijit', 'orion/util', 'orion/commands', 'dijit/form/
 
 	dojo.declare("orion.widgets.settings.Select", [dijit._Widget, dijit._Templated], { //$NON-NLS-0$
 	
-		templateString: '<select data-dojo-attach-point="selection" data-dojo-attach-event="onchange:change"></select>', //$NON-NLS-0$
+		templateString: '<select class="setting-control" data-dojo-attach-point="selection" data-dojo-attach-event="onchange:change"></select>', //$NON-NLS-0$
 		
 		// category, item, element, ui - provided on construction
 		
@@ -35,8 +35,12 @@ define(['require', 'dojo', 'dijit', 'orion/util', 'orion/commands', 'dijit/form/
 		change: function(){
 		
 			var value = this.selection.value;
-		
-		 	this.setStorageItem( this.category, this.item, this.element, value, this.ui );
+			
+			if( this.category ){
+				this.setStorageItem( this.category, this.item, this.element, value, this.ui );
+		 	}else{
+		 		this.setStorageItem( value );
+		 	}
 		},
 		
 		postCreate: function(){
