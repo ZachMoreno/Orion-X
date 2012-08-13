@@ -182,8 +182,8 @@ exports.EditorCommandFactory = (function() {
 																		});
 				var that = this;
 				var findCommand =  new mCommands.Command({
-					name: "Find",
-					tooltip: "Find",
+					name: messages["Find"],
+					tooltip: messages["Find"],
 					id: "orion.editor.find", //$NON-NLS-0$
 					parameters: findParameter,
 					callback: function(data) {
@@ -297,7 +297,7 @@ exports.EditorCommandFactory = (function() {
 						var serviceReference = actionReferences[i];
 						var service = this.serviceRegistry.getService(actionReferences[i]);
 						var info = {};
-						var propertyNames = actionReferences[i].getPropertyNames();
+						var propertyNames = actionReferences[i].getPropertyKeys();
 						for (var j = 0; j < propertyNames.length; j++) {
 							info[propertyNames[j]] = actionReferences[i].getProperty(propertyNames[j]);
 						}

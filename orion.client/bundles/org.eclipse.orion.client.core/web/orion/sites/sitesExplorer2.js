@@ -12,6 +12,7 @@
 define(['i18n!orion/sites/nls/messages', 'orion/i18nUtil', 'dojo', 'orion/explorer', 'orion/Deferred', 'orion/commands', 'orion/globalCommands',
 		'orion/selection', 'orion/sites/siteUtils', 'orion/navigationUtils', 'orion/sites/siteClient', 'orion/sites/siteCommands', 'orion/treetable'],
 		function(messages, i18nUtil, dojo, mExplorer, Deferred, mCommands, mGlobalCommands, mSelection, mSiteUtils, mNavUtils, mSiteClient, mSiteCommands, treetable) {
+	var SiteServicesExplorer2, SitesRenderer2, SiteTreeModel;
 
 	/** 
 	 * Generates an explorer showing the sites on each site service.
@@ -50,10 +51,10 @@ define(['i18n!orion/sites/nls/messages', 'orion/i18nUtil', 'dojo', 'orion/explor
 		SiteServicesExplorer2.prototype._getSiteConfigurations = function(siteServices, result, deferred){
 			var that = this;
 			
-			if (deferred == null)
+			if (!deferred)
 				deferred = new dojo.Deferred();
 			
-			if (result == null)
+			if (!result)
 				result = [];
 			
 			if (siteServices.length > 0) {
@@ -68,7 +69,7 @@ define(['i18n!orion/sites/nls/messages', 'orion/i18nUtil', 'dojo', 'orion/explor
 			}
 			
 			return deferred;
-		},
+		};
 		
 		SiteServicesExplorer2.prototype.display = function(){
 			var that = this;
@@ -94,7 +95,6 @@ define(['i18n!orion/sites/nls/messages', 'orion/i18nUtil', 'dojo', 'orion/explor
 					
 					commandService.registerCommandContribution(that.pageActionsWrapperId, 'orion.site.create', 100); //$NON-NLS-0$
 					
-					commandService.registerCommandContribution(that.selectionActionsWrapperId, 'orion.site.edit', 10); //$NON-NLS-0$
 					commandService.registerCommandContribution(that.selectionActionsWrapperId, 'orion.site.start', 20); //$NON-NLS-0$
 					commandService.registerCommandContribution(that.selectionActionsWrapperId, 'orion.site.stop', 30); //$NON-NLS-0$
 					commandService.registerCommandContribution(that.selectionActionsWrapperId, 'orion.site.delete', 40); //$NON-NLS-0$
@@ -190,7 +190,7 @@ define(['i18n!orion/sites/nls/messages', 'orion/i18nUtil', 'dojo', 'orion/explor
 							dojo.place(document.createTextNode(status.URL), link, "last"); //$NON-NLS-0$
 							mNavUtils.addNavGrid(this.explorer.getNavDict(), item, link);
 							
-							dojo.place(document.createTextNode(".)"), statusField, "last");
+							dojo.place(document.createTextNode(")"), statusField, "last");
 							
 							var inlineAction = dojo.create("span", {"style" : "padding-left:10px;"}, statusField, "last");
 							this.registry.getService('orion.page.command').renderCommands("DefaultActionWrapper", inlineAction, item, this.explorer, "button", this.explorer.getRefreshHandler(), navGridHolder); //$NON-NLS-1$ //$NON-NLS-0$
@@ -200,13 +200,13 @@ define(['i18n!orion/sites/nls/messages', 'orion/i18nUtil', 'dojo', 'orion/explor
 							
 							link.href = status.URL;
 						} else {
-							var statusString = "(" + status.Status.substring(0,1).toUpperCase() + status.Status.substring(1) + ".)";
+							var statusString = "(" + status.Status.substring(0,1).toUpperCase() + status.Status.substring(1) + ")";
 							dojo.place(document.createTextNode(statusString), statusField, "last"); //$NON-NLS-0$
 							
 							var inlineAction = dojo.create("span", {"style" : "padding-left:10px"}, statusField, "last");
 							this.registry.getService('orion.page.command').renderCommands("DefaultActionWrapper", inlineAction, item, this.explorer, "button", this.explorer.getRefreshHandler(), navGridHolder); //$NON-NLS-1$ //$NON-NLS-0$
 							
-							dojo.place(document.createTextNode("this site."), statusField, "last"); //$NON-NLS-0$
+							dojo.place(document.createTextNode("this site"), statusField, "last"); //$NON-NLS-0$
 						}
 					} else {
 						dojo.place(document.createTextNode(messages["Unknown"]), statusField, "last"); //$NON-NLS-1$
@@ -220,7 +220,7 @@ define(['i18n!orion/sites/nls/messages', 'orion/i18nUtil', 'dojo', 'orion/explor
 		return SitesRenderer2;
 	}());
 	
-	var SiteTreeModel = (function() {
+	SiteTreeModel = (function() {
 		/**
 		 * @name orion.sites.SiteTreeModel
 		 * @class Tree model for powering a tree of site configurations.
