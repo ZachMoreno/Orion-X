@@ -17,7 +17,7 @@
 
 
 #header {
-	height: 30px; 
+	height: 33px; 
 	background: -webkit-linear-gradient(top, #FAFAFA, #EAEAEA); 
 	border-bottom: 1px solid #CACACA;
 }
@@ -25,14 +25,17 @@
 #actions {
 	float: left;
 	display: block;
-	padding: 7px;
+	padding-top: 7px;
 }
 
 #status {
 	float: right;
 	display: block;
 	padding: 7px;
+	padding-bottom: 0px;
+	height: 27px;
 	font-size: 13px;
+	line-height: auto;
 }
 
 a {
@@ -83,6 +86,7 @@ h2 {
 	diplay: block;
 	margin-top: -9px;
 	margin-left: 60px;
+	line-height: auto;
 	font-weight: normal;
 	font-size: 13px;
 }

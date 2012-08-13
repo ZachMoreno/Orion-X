@@ -16,19 +16,20 @@ define([], function() {
 	 * @name orion.ServiceTracker
 	 * @class Simplifies the use of services within a service registry.
 	 * @description A ServiceTracker tracks matching services in the given service registry. Matching services are those
-	 * whose <em>service name</em> matches the given <code>serviceName</code>. The {@link #addingService} and 
+	 * whose <code>service.names</code> property contains the given <code>serviceName</code>. The {@link #addingService} and 
 	 * {@link #removedService} methods can be overridden to customize the service objects being tracked.
 	 * @param {orion.serviceregistry.ServiceRegistry} serviceRegistry The service registry to track services of.
 	 * @param {String} serviceName The service name of services to be tracked.
 	 */
 	function ServiceTracker(serviceRegistry, serviceName) {
+		this.serviceRegistry = serviceRegistry;
 		var refs = {};
 		var services = {};
 		var state = CLOSED;
 		var addedListener, removedListener;
 
 		function add(serviceRef) {
-			var id = serviceRef.getServiceId();
+			var id = serviceRef.getProperty('service.id');
 			var serviceObject = this.addingService(serviceRef);
 			if (serviceObject) {
 				refs[id] = serviceRef;
@@ -36,29 +37,16 @@ define([], function() {
 			}
 		}
 		function remove(serviceRef) {
-			var id = serviceRef.getServiceId();
+			var id = serviceRef.getProperty('service.id');
 			var service = services[id];
 			delete refs[id];
 			delete services[id];
 			this.removedService(serviceRef, service);
 		}
 		function isTrackable(serviceRef) {
-			return serviceName === serviceRef.getName();
+			return serviceRef.getProperty('service.names').indexOf(serviceName) !== -1; //$NON-NLS-0$
 		}
 
-		/**
-		 * Called when a service is being added to this ServiceTracker. Subclasses may override this method. The
-		 * default implementation returns the result of calling {@link orion.serviceregistry.ServiceRegistry#getService}
-		 * passing the service reference.
-		 * @name orion.ServiceTracker#addingService
-		 * @function
-		 * @param {orion.serviceregistry.ServiceReference} serviceRef The reference to the service being added.
-		 * @returns {Object} The service object to be tracked for the given service reference. If <code>null</code> 
-		 * is returned, the service reference will not be tracked.
-		 */
-		this.addingService = function(serviceRef) {
-			return serviceRegistry.getService(serviceRef);
-		};
 		/**
 		 * Stops tracking services.
 		 * @name orion.ServiceTracker#close
@@ -77,6 +65,9 @@ define([], function() {
 			this.getServiceReferences().forEach(function(serviceRef) {
 				remove.call(self, serviceRef);
 			});
+			if (typeof this.onClose === 'function') {
+				this.onClose();
+			}
 		};
 		/**
 		 * Returns service references to the services that are being tracked.
@@ -107,6 +98,9 @@ define([], function() {
 			addedListener = /** @ignore */ function(serviceRef, service) {
 				if (isTrackable(serviceRef)) {
 					add.call(self, serviceRef);
+					if (typeof self.onServiceAdded === 'function') {
+						return self.onServiceAdded(serviceRef, service);
+					}
 				}
 			};
 			removedListener = /** @ignore */ function(serviceRef, service) {
@@ -119,7 +113,49 @@ define([], function() {
 			serviceRegistry.getServiceReferences(serviceName).forEach(function(serviceRef) {
 				add.call(self, serviceRef);
 			});
+			if (typeof this.onOpen === 'function') {
+				this.onOpen();
+			}
 		};
+	}
+	ServiceTracker.prototype = {
+		/**
+		 * Called to customize a service object being added to this ServiceTracker. Subclasses may override this method.
+		 * The default implementation returns the result of calling {@link orion.serviceregistry.ServiceRegistry#getService}
+		 * passing the service reference.
+		 * @name orion.ServiceTracker#addingService
+		 * @function
+		 * @param {orion.serviceregistry.ServiceReference} serviceRef The reference to the service being added.
+		 * @returns {Object} The service object to be tracked for the given service reference. If <code>null</code> 
+		 * is returned, the service reference will not be tracked.
+		 */
+		addingService: function(serviceRef) {
+			return this.serviceRegistry.getService(serviceRef);
+		},
+		/**
+		 * Called when this ServiceTracker has been opened. Subclasses can override this method.
+		 * @name orion.ServiceTracker#onOpen
+		 * @function
+		 */
+		onOpen: null,
+		/**
+		 * Called when this ServiceTracker has been closed. Subclasses can override this method.
+		 * @name orion.ServiceTracker#onClose
+		 * @function
+		 */
+		onClose: null,
+		/**
+		 * Called when a service is being added to this ServiceTracker. Subclasses can override this method to take part
+		 * in the service's <code>'serviceAdded'</code> phase.
+		 * @name orion.ServiceTracker#onServiceAdded
+		 * @function
+		 * @param {orion.serviceregistry.ServiceReference} serviceRef
+		 * @param {orion.serviceregistry.Service} service
+		 * @returns {Deferred|undefined} This method can optionally return a deferred. If it does, the returned deferred
+		 * will be added to the service's <code>serviceAdded</code> listener queue; in other words, the returned deferred
+		 * must resolve before any calls to the service's methods can proceed.
+		 */
+		onServiceAdded: null,
 		/**
 		 * Called when a service has been removed from this ServiceTracker. Subclasses may override this method.
 		 * The default implementation does nothing.
@@ -128,9 +164,9 @@ define([], function() {
 		 * @param {orion.serviceregistry.ServiceReference} serviceRef The reference to the removed service.
 		 * @param {orion.serviceregistry.Service} service The service object for the removed service.
 		 */
-		this.removedService = function(serviceRef, service) {
-		};
-	}
+		removedService: function(serviceRef, service) {
+		}
+	};
 
 	return ServiceTracker;
 });

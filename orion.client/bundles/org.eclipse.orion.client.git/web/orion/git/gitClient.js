@@ -589,7 +589,7 @@ eclipse.GitService = (function() {
 			});
 			return clientDeferred;
 		},
-		doMerge : function(gitHeadURI, commitName) {
+		doMerge : function(gitHeadURI, commitName, squash) {
 			var service = this;
 			var clientDeferred = new dojo.Deferred();
 			dojo.xhrPost({
@@ -598,7 +598,8 @@ eclipse.GitService = (function() {
 					"Orion-Version" : "1" //$NON-NLS-1$ //$NON-NLS-0$
 				},
 				postData : dojo.toJson({
-					"Merge" : commitName //$NON-NLS-0$
+					"Merge" : commitName, //$NON-NLS-0$
+					"Squash" : squash
 				}),
 				handleAs : "json", //$NON-NLS-0$
 				timeout : 5000,
@@ -880,6 +881,29 @@ eclipse.GitService = (function() {
 				},
 				handleAs: "json", //$NON-NLS-0$
 				timeout: 15000,
+				load: function(jsonData, xhrArgs) {
+					dojo.hitch(service, service._getGitServiceResponse)(clientDeferred, jsonData, xhrArgs);
+				},
+				error: function(error, ioArgs) {
+					dojo.hitch(service, service._handleGitServiceResponseError)(clientDeferred, this, error, ioArgs);
+				}
+			});
+			return clientDeferred;
+		},
+		sendCommitReviewRequest: function(commit, location, login, url, authorName, message){
+			var service = this;
+			var clientDeferred = new dojo.Deferred();
+			dojo.xhrPost({
+				url: location , 
+				handleAs: "json", //$NON-NLS-0$
+				timeout: 15000,
+				postData : dojo.toJson({
+					"PullReqCommit": commit,
+					"PullReqUrl" : url, //$NON-NLS-0$
+					"PullReqNotifyLogin" : login, //$NON-NLS-0$	
+					"PullReqAuthorName" : authorName,
+					"PullReqMessage" : message
+				}),
 				load: function(jsonData, xhrArgs) {
 					dojo.hitch(service, service._getGitServiceResponse)(clientDeferred, jsonData, xhrArgs);
 				},
