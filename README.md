@@ -10,8 +10,9 @@ Requires [Chrome version 19+] (https://tools.google.com/dlpage/chromesxs/)
 3. Select the check box for Developer mode
 4. Select Load unpacked extensions...
 5. Point the filesystem dialogue to the root of your Orion-X clone
-6. Select the DevTools settings gear menu
-7. Select Orion-X from the `Open links in` drop down menu
+6. Open DevTools
+7. Select the DevTools settings gear menu
+8. Select Orion-X from the `Open links in` drop down menu
 
 ## Sirius Installation
 1. Complete the installation process above for Chrome DevTools
