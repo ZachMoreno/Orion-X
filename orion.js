@@ -74,16 +74,15 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 	
 
 	// listen to breakpoint events from the extension API
-	/*
-	chrome.devtools.onSetBreakpoint(line) {
-		if (editor) editor.setBreakpoint(line);
+	/*chrome.devtools.onSetBreakpoint(line) {
+		if (editorInterface) editorInterface.setBreakpoint(line);
 	}
 
 	chrome.devtools.onUnsetBreakpoint(line) {
-		if (editor) editor.unsetBreakpoint(line);
-	}
+		if (editorInterface) editorInterface.unsetBreakpoint(line);
+	}*/
 
-	*/
+	
 
 
 
@@ -108,10 +107,6 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 
 	// as panels load lazily, grab the editor when it's ready
 	panel.onShown.addListener(function(window) {
-		if (!editorInterface) {
-			editorInterface.onSetBreakpoint = setBreakpoint;
-			editorInterface.onUnsetBreakpoint = unsetBreakpoint;
-		}
 		if (buffer) {
 			console.log('loading buffer');
 			load(buffer.content, buffer.line);

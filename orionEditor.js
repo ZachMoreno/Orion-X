@@ -106,6 +106,11 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 		var src = editorInterface.getContents();
 		editor.setInput(null, null, null, true);
 		window.alert("Save");
+		if (!src) {
+			console.error('SAVE UNSUCCESSFUL');
+		} else {
+			console.log('SAVE SUCCESSFUL ' + src);
+		}
 	}
 
 	function prettyPrint(content) {
@@ -222,7 +227,7 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 		},
 
 		getContents: function() {
-			console.error("TODO");
+			console.error('TODO');
 		},
 
 		// set and unset breakpoints with the extension API

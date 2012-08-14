@@ -41,7 +41,7 @@ $(window).load(function() {
 
 $(window).load(function() {
 	$("a.fancybox").fancybox({
-		'hideOnContentClick': false,
+		'hideOnContentClick': true,
 		'showCloseButton'   : true,
 		'transitionIn'      : 'elastic',
 		'transitionOut'     : 'elastic',
@@ -51,11 +51,13 @@ $(window).load(function() {
 	});
 	
 	$("a.iframe").fancybox({
-		'hideOnContentClick': false,
+		'hideOnContentClick': true,
+		'showCloseButton'   : true,
 		'transitionIn'      : 'elastic',
 		'transitionOut'     : 'elastic',
 		'speedIn'           : 600,
-		'speedOut'          : 200
+		'speedOut'          : 200,
+		'overlayColor'      : '#fff'
 	});
 });
 
