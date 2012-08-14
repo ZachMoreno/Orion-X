@@ -140,7 +140,7 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 
 		document.getElementById("create").onclick = function() {newFile();};
 
-		document.getElementById("open").onclick = function() {editorInterface.openResources();};
+		// document.getElementById("open").onclick = function() {editorInterface.openResources();};
 
 	};
 		
