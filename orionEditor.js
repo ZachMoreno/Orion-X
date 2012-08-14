@@ -136,7 +136,7 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 		// speaking of save...
 		document.getElementById("save").onclick = function() {save(editor);};
 
-		document.getElementById("prettyprint").onclick = function() {prettyPrint();};
+		// document.getElementById("prettyprint").onclick = function() {prettyPrint();};
 
 		document.getElementById("create").onclick = function() {newFile();};
 
