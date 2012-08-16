@@ -23,7 +23,6 @@ chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function(
 chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function(panel) {
 	console.log('panel',JSON.stringify(panel),panel);
 
-
 	var res      = null,
 		buffer   = null,
 		editorInterface;
@@ -60,7 +59,7 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 		}
 	}
 
-	// commit changes made to resource code
+	// commit changes made to content of editable resource
 	function save() {
 		if (editorInterface) {
 			var content = editorInterface.getContent();
@@ -71,7 +70,6 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 			});
 		}
 	}
-	
 
 	// listen to breakpoint events from the extension API
 	/*chrome.devtools.onSetBreakpoint(line) {
@@ -82,14 +80,9 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 		if (editorInterface) editorInterface.unsetBreakpoint(line);
 	}*/
 
-	
-
-
-
 	// use Orion panel to open resources
 	chrome.devtools.panels.setOpenResourceHandler(function(resource, line) {
 		console.log('open resource', resource, resource.url, resource.type, line);
-
 		res     = resource;
 		resURL	= resource.url;
 		resType = resource.type;
@@ -97,13 +90,13 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 		res.getContent(function(content, encoding) {
 			resContent = content;
 			console.log('encoding', encoding);
-			// Doin' work
+			// Swapping content from instructions.js to selected DevTools resource
 			load(editorInterface.setContent(resURL, resContent, resType, resLine));
 		});
-
+		// switching to Orion panel
+		// resource is loaded into editor after panel has been opened once before
 		panel.show();
 	});
-
 
 	// as panels load lazily, grab the editor when it's ready
 	panel.onShown.addListener(function(window) {
@@ -113,7 +106,6 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 			buffer = null;
 		}
 	});
-	
 
 	// wire WebInspector search bar to the editor
 	panel.onSearch.addListener(function(action, query) {
@@ -122,11 +114,6 @@ chrome.devtools.panels.create('Orion', 'img/orion32.png', 'panel.html', function
 			editorInterface.search(action, query);
 		}
 	});
-
-	// SAVE button on status bar
-	// var buttonsave = panel.createStatusBarButton('img/orion16.png', 'Save', false);
-	// buttonsave.onClicked.addListener(save);
-
 });
 
 

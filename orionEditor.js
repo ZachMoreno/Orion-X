@@ -16,11 +16,9 @@
 /*global examples orion:true window define*/
 /*jslint browser:true devel:true*/
 
-
-
-
 define([
 	"orion.client/bundles/org.eclipse.orion.client.core/web/requirejs/require",
+	// jsLint
 	"orion.client/bundles/org.eclipse.orion.client.core/web/orion/jslintPlugin",
 	"orion.client/bundles/org.eclipse.orion.client.core/web/orion/jslintworker",
 	"orion/textview/textView",
@@ -113,9 +111,11 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 		}
 	}
 
+	/*
 	function prettyPrint(content) {
 		window.alert("Pretty Print");
 	}
+	*/
 
 	function newFile() {
 		window.alert("New File");
@@ -188,13 +188,14 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 		document.getElementById("status").innerHTML = dirtyIndicator + status;
 	});
 	
+	// this code runs each time content is changed
 	editor.installTextView();
-	// if there is a mechanism to change which file is being viewed, this code would be run each time it changed.
 	
-	var contentName = "instructions.js";  // for example, a file name, something the user recognizes as the content.
+	// file name
+	var contentName = "instructions.js";
+	// content
 	var initialContent = "/*\n	Select settings > Open links in > Orion-X\n\n	Click any link in the Elements panel to edit with Orion\n		or\n	Right-click on a file in the Resources panel & select Open with Orion \n*/";
 
-	// placing name & content into editor
 	// PARAMETERS (title, message, contents, contentsSaved)
 	editor.setInput(contentName, null, initialContent);
 	syntaxHighlighter.highlight(contentName, editor);
@@ -214,8 +215,10 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 		}
 	};
 
+	// from what I can tell, orion plugins don't work with the embedded orion editor
 	// var jslint = mJSLintPlugin.jslint(resContent);
 
+	// editorInterface makes editor API available to orion.js
 	var editorInterface = {
 		search: function(action, query) {
 			var cursor = editor.getSearchCursor(query, null, true);
@@ -239,6 +242,7 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 			editor.clearMarker(line);
 		},
 
+		// changing content
 		setContent: function(resURL, resContent, resType, resLine) {
 			console.log('LOADING: ' + resURL + '\n' + resContent + '\n' + resType + '\n' + resLine);
 			editor.setInput(resURL, null, resContent, null);
