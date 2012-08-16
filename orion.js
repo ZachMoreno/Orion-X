@@ -18,10 +18,22 @@
 chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function(resource, content) {
 	// logs edited content & url
 	console.log('resource content committed', resource.url + '\n' + content);
+
 	chrome.devtools.network.getHAR(function(harLog){
-		// returns harLog object
+		// Returns HAR log that contains all known network requests
 		console.log('HAR log', harLog);
+		// scanning
+		harScanner(harLog);
 	});
+
+	// scanning HAR for resource.url
+	function harScanner (log) {
+		if (log.pages === resource.url) {
+			console.log('found ', resource.url);
+		} else {
+			console.log('bummer, no matching url');
+		}
+	}
 });
 
 // create the Orion panel
