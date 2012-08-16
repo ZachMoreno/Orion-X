@@ -16,7 +16,12 @@
 
 // watch when resource contents are committed
 chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function(resource, content) {
-	console.log('resource content committed', resource, content);
+	// logs edited content & url
+	console.log('resource content committed', resource.url + '\n' + content);
+	chrome.devtools.network.getHAR(function(harLog){
+		// returns harLog object
+		console.log('HAR log', harLog);
+	});
 });
 
 // create the Orion panel
