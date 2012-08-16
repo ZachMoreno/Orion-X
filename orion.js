@@ -20,14 +20,16 @@ chrome.devtools.inspectedWindow.onResourceContentCommitted.addListener(function(
 	console.log('resource content committed', resource.url + '\n' + content);
 
 	chrome.devtools.network.getHAR(function(harLog){
-		// Returns HAR log that contains all known network requests
-		console.log('HAR log', harLog);
+		// returns HAR log that contains all known network requests
+		console.log('harlog: ', harLog);
 		// scanning
 		harScanner(harLog);
 	});
 
 	// scanning HAR for resource.url
 	function harScanner (log) {
+		console.log("harLog: ", log);
+		console.log("harLog.pages ", log.pages);
 		if (log.pages === resource.url) {
 			console.log('found ', resource.url);
 		} else {
