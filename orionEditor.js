@@ -103,7 +103,7 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 		var url = editor.sourceName;
 		var src = editorInterface.getContents();
 		editor.setInput(null, null, null, true);
-		window.alert("Save");
+		window.alert("Save is currently on our TODO list");
 		if (!src) {
 			console.error('SAVE UNSUCCESSFUL');
 		} else {
@@ -118,7 +118,7 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 	*/
 
 	function newFile() {
-		window.alert("New File");
+		window.alert("New File is currently on our TODO list");
 	}
 	
 	var keyBindingFactory = function(editor, keyModeStack, undoStack, contentAssist) {
