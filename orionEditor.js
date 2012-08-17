@@ -192,9 +192,9 @@ function(require, mJSLintPlugin, mJSLintWorker, mTextView, mKeyBinding, mTextSty
 	editor.installTextView();
 	
 	// file name
-	var contentName = "instructions.js";
+	var contentName = "instructions.html";
 	// content
-	var initialContent = "/*\n	Select settings > Open links in > Orion-X\n\n	Click any link in the Elements panel to edit with Orion\n		or\n	Right-click on a file in the Resources panel & select Open with Orion \n*/";
+	var initialContent = "<!--\n	Select settings > Open links in > Orion-X\n\n	Click any link in the Elements panel to edit with Orion-X\n		or\n	Right-click on a file in the Resources panel & select Open with Orion-X \n-->";
 
 	// PARAMETERS (title, message, contents, contentsSaved)
 	editor.setInput(contentName, null, initialContent);
