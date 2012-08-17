@@ -16,15 +16,16 @@ Requires [Chrome version 19+] (https://tools.google.com/dlpage/chromesxs/)
 
 ## Sirius Installation
 1. Complete the installation process above for Chrome DevTools
-2. Clone the repo `git clone https://github.com/johnjbarton/sirius.git`
-3. Open [chrome://extensions] (chrome://extensions)
-4. Select the check box for Developer mode
-5. Select Load unpacked extensions...
-6. Point the filesystem dialogue to the root of your Sirius clone
-7. Select the `Options` link under Sirius
-8. Input `Orion` for the extensions name and `chrome-extension://YOUR-ORION-EXTENSION-ID/orion.html` for the URL
-9. Select Save
-10. Return to [chrome://extensions] (chrome://extensions) and select the `Reload` link under Sirius
+2. Uncomment orion.html:lines 23-28 and panel.html:lines 36-41
+3. Clone the repo `git clone https://github.com/johnjbarton/sirius.git`
+4. Open [chrome://extensions] (chrome://extensions)
+5. Select the check box for Developer mode
+6. Select Load unpacked extensions...
+7. Point the filesystem dialogue to the root of your Sirius clone
+8. Select the `Options` link under Sirius
+9. Input `Orion` for the extensions name and `chrome-extension://YOUR-ORION-EXTENSION-ID/orion.html` for the URL
+10. Select Save
+11. Return to [chrome://extensions] (chrome://extensions) and select the `Reload` link under Sirius
 
 ## Debugging
 1. Open Chrome DevTools (Cmd+Opt+i)
