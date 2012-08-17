@@ -29,7 +29,7 @@
 
   "page_action": {
     "default_icon": "/img/orion16.png",
-    "default_title": "Orion Extension"
+    "default_title": "Orion-X"
    },
 
   "devtools_page": "orion.html",
