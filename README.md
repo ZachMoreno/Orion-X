@@ -1,5 +1,6 @@
 # Orion-X Chrome DevTools Extension
 Requires [Chrome v19+] (https://tools.google.com/dlpage/chromesxs/)
+### **This extension was developed as research into functionality that has now evolved into & landed as [Chrome DevTools Workspace](https://developers.google.com/chrome-developer-tools/docs/settings#workspace)
 
 ##Chrome Web Store Installation
 1. Navigate to the [Chrome Web Store](https://chrome.google.com/webstore/detail/orion-x/fjclcbajejgdcahagfjlocnkffnblghc?hl=en-US)
