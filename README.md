@@ -1,8 +1,10 @@
-# Orion-X
+# Orion-X Chrome DevTools Extension
+Requires [Chrome v19+] (https://tools.google.com/dlpage/chromesxs/)
 
-### Eclipse Orion Chrome Extension
----
-Requires [Chrome version 19+] (https://tools.google.com/dlpage/chromesxs/)
+##Chrome Web Store Installation
+1. Navigate to the [Chrome Web Store](https://chrome.google.com/webstore/detail/orion-x/fjclcbajejgdcahagfjlocnkffnblghc?hl=en-US)
+2. Click the blue + FREE button
+3. Open DevTools
 
 ## Chrome DevTools Installation
 1. Clone the repo `git clone https://github.com/XachMoreno/Orion-X.git`
@@ -27,6 +29,7 @@ Requires [Chrome version 19+] (https://tools.google.com/dlpage/chromesxs/)
 10. Select Save
 11. Return to [chrome://extensions] (chrome://extensions) and select the `Reload` link under Sirius
 
+---
 ## Debugging
 1. Open Chrome DevTools (Cmd+Opt+i)
 2. Select the Orion tab
